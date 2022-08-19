@@ -1,0 +1,50 @@
+package com.github.xs93.core.ktx
+
+import android.content.Context
+import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.github.xs93.core.ui.Insets
+
+/**
+ *
+ *
+ * @author XuShuai
+ * @version v1.0
+ * @date 2022/8/19 16:02
+ * @email 466911254@qq.com
+ */
+
+fun Insets.landscape(context: Context): Insets {
+    val displayMetrics = context.resources.displayMetrics
+
+    val landscapeMinWidthDp = context.getAppMateData().getInt("surface_landscape_min_width_dp")
+    val minWidth = context.dpToPx(landscapeMinWidthDp)
+
+    val width = displayMetrics.widthPixels
+    val height = displayMetrics.heightPixels
+
+    return if (width > height && width > minWidth) {
+        val expectedWidth = width.coerceAtMost(height.coerceAtLeast(minWidth))
+        val padding = (width - expectedWidth).coerceAtLeast(start + end) / 2
+        copy(start = padding.coerceAtLeast(start), end = padding.coerceAtLeast(end))
+    } else {
+        this
+    }
+}
+
+fun View.setOnInsertsChangedListener(adaptLandscape: Boolean = true, listener: (Insets) -> Unit) {
+    setOnApplyWindowInsetsListener { v, ins ->
+        val compat = WindowInsetsCompat.toWindowInsetsCompat(ins)
+        val insets = compat.getInsets(WindowInsetsCompat.Type.systemBars())
+
+        val rInsets = if (ViewCompat.getLayoutDirection(v) == ViewCompat.LAYOUT_DIRECTION_LTR) {
+            Insets(insets.left, insets.top, insets.right, insets.bottom)
+        } else {
+            Insets(insets.right, insets.top, insets.left, insets.bottom)
+        }
+        listener(if (adaptLandscape) rInsets.landscape(v.context) else rInsets)
+        compat.toWindowInsets()
+    }
+    requestApplyInsets()
+}
