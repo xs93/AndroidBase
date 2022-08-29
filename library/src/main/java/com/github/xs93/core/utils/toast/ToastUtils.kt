@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Handler
-import android.view.Gravity
-import android.view.View
 import android.widget.Toast
 import java.lang.reflect.Field
 
@@ -30,18 +28,13 @@ object ToastUtils {
     }
 
     @JvmStatic
-    fun show(charSequence: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    fun show(charSequence: CharSequence, duration: Int = Toast.LENGTH_SHORT, transform: ((Toast) -> Unit)? = null) {
         val toast = Toast.makeText(mContext, charSequence, duration)
+        toast.setText(charSequence)
+        transform?.invoke(toast)
         hook(toast)
         toast.show()
     }
-
-    fun showCustom(view: View, gravity: Gravity, duration: Int = Toast.LENGTH_SHORT) {
-        val toast = Toast(mContext).apply {
-            setView(view)
-        }
-    }
-
 
     /** 修复版本7.1.1 toast显示错误bug */
     @SuppressLint("DiscouragedPrivateApi")
