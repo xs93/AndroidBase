@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.github.xs93.core.base.ui.viewbinding.BaseVbDialogFragment
+import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.simple.databinding.DialogFullScreenBinding
 import com.github.xs93.core.utils.toast.ToastUtils
 
@@ -34,7 +35,9 @@ class FullScreenDialogFragment : BaseVbDialogFragment<DialogFullScreenBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        FlowBus.withSticky<String>("testSticky").subscribe(viewLifecycleOwner) {
+            ToastUtils.show(it + "FullScreenDialogFragment")
+        }
     }
 
     override fun onStart() {
@@ -54,7 +57,6 @@ class FullScreenDialogFragment : BaseVbDialogFragment<DialogFullScreenBinding>()
             }
             ViewCompat.setOnApplyWindowInsetsListener(mBinding.root) { v, insets ->
                 val inset = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                ToastUtils.show("${inset.top},${inset.bottom}")
                 mBinding.root.setPadding(inset.left, inset.top, inset.right, inset.bottom)
                 insets
             }
