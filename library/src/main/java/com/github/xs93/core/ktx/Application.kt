@@ -4,10 +4,9 @@ package com.github.xs93.core.ktx
 
 import android.app.Application
 import android.os.Build
-import android.os.Process
-import java.io.BufferedReader
 import java.io.File
-import java.io.FileReader
+import java.io.FileInputStream
+import java.nio.charset.Charset
 
 /**
  *
@@ -26,8 +25,13 @@ val Application.currentProcessName: String
             return Application.getProcessName()
         }
         return try {
-            val cmdline = File("/proc/${Process.myPid()}/cmdline")
-            BufferedReader(FileReader(cmdline)).use { reader -> return reader.readLine() }
+            val cmdline = File("/proc/self/cmdline")
+            FileInputStream(cmdline).buffered().use {
+                val buffer = it.readBytes()
+                    .dropLastWhile { b -> b.compareTo(0) == 0 }
+                    .toByteArray()
+                String(buffer, 0, buffer.size, Charset.forName("utf-8"))
+            }
         } catch (throwable: Throwable) {
             packageName
         }

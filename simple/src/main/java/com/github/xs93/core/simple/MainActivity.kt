@@ -10,6 +10,10 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
+import com.github.xs93.core.ktx.isAllowForceDarkCompat
+import com.github.xs93.core.ktx.isLightNavigationBarCompat
+import com.github.xs93.core.ktx.isLightStatusBarsCompat
+import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
 import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
 import com.github.xs93.core.utils.toast.ToastUtils
@@ -25,7 +29,14 @@ class MainActivity : BaseVbActivity<ActivityMainBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         ToastUtils.init(this)
+
+        window.isSystemBarsTranslucentCompat = true
+        window.isAllowForceDarkCompat = true
+//        window.isLightStatusBarsCompat = true
+//        window.isLightNavigationBarCompat = true
+
         mBinding.clickEvent = ClickEvent()
+        mBinding.surface = surface
         window.apply {
             navigationBarColor = Color.BLUE
         }
