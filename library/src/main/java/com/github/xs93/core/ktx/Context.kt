@@ -3,11 +3,9 @@
 package com.github.xs93.core.ktx
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.Spanned
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.annotation.DimenRes
-import androidx.annotation.StringRes
+import androidx.annotation.*
 import androidx.core.content.ContextCompat
 
 /**
@@ -54,8 +52,16 @@ fun Context.getPixelOffset(@DimenRes id: Int): Int {
 }
 
 @ColorInt
-fun Context.getCompatColor(@ColorRes id: Int): Int {
+fun Context.getColorCompat(@ColorRes id: Int): Int {
     return ContextCompat.getColor(this, id)
+}
+
+fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable? {
+    return ContextCompat.getDrawable(this, id)
+}
+
+fun Context.checkSelfPermissionCompat(@NonNull permission: String): Int {
+    return ContextCompat.checkSelfPermission(this, permission)
 }
 
 fun Context.getHtml(@StringRes resId: Int): Spanned {
