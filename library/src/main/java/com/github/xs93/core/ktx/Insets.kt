@@ -44,7 +44,7 @@ fun View.setOnInsertsChangedListener(adaptLandscape: Boolean = true, listener: (
             Insets(insets.right, insets.top, insets.left, insets.bottom)
         }
         listener(if (adaptLandscape) rInsets.landscape(v.context) else rInsets)
-        compat.toWindowInsets()
+        v.onApplyWindowInsets(compat.toWindowInsets())
     }
     requestApplyInsets()
 }
