@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -19,9 +20,27 @@
         android:background="@color/teal_700"
         android:gravity="top"
         android:orientation="vertical"
-        android:paddingBottom="@{surface.insets.bottom}"
         tools:context=".MainActivity">
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@{surface.insets.top,default = wrap_content}"
+            android:background="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2222" />
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/white" />
 
         <SeekBar
             android:id="@+id/seekBar"
@@ -31,11 +50,10 @@
             android:max="10"
             android:progress="3" />
 
-        <Button
-            android:id="@+id/button"
-            onSingleClick="@{clickEvent::clickFullScreenDialog}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FullScreenDialog" />
+        <!--        <Button-->
+        <!--            android:id="@+id/button"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="FullScreenDialog" />-->
     </LinearLayout>
 </layout>

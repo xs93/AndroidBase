@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("kotlin-kapt")
 }
 
 android {
@@ -41,7 +42,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-//    implementation 'com.github.xs93:AndroidBase:1.0.5'
+//    implementation 'com.github.xs93:AndroidBase:1.0.6'
     implementation project(path: ':library')
     implementation 'com.github.xs93:mmkv-ktx:1.0.1'
     testImplementation 'junit:junit:4.13.2'
