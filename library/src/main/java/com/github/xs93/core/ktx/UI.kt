@@ -3,6 +3,7 @@
 package com.github.xs93.core.ktx
 
 import android.annotation.TargetApi
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.Window
@@ -40,6 +41,33 @@ var Window.isSystemBarsTranslucentCompat: Boolean
                 }
         }
 
+        if (Build.VERSION.SDK_INT >= 28) {
+            if (value) {
+                attributes.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            } else {
+                attributes.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+            }
+        }
+    }
+
+var Window.isStatusBarTranslucentCompat: Boolean
+    get() {
+        throw UnsupportedOperationException("set value only")
+    }
+    set(value) {
+        decorView.systemUiVisibility =
+            if (value) {
+                decorView.systemUiVisibility or
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            } else {
+                decorView.systemUiVisibility and
+                        (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                                View.SYSTEM_UI_FLAG_LAYOUT_STABLE).inv()
+            }
+        statusBarColor = Color.TRANSPARENT
         if (Build.VERSION.SDK_INT >= 28) {
             if (value) {
                 attributes.layoutInDisplayCutoutMode =
