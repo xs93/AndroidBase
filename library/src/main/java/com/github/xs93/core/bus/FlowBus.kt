@@ -53,7 +53,7 @@ object FlowBus {
 
         fun subscribe(
             dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
-            block: (T) -> Unit
+            block: (T) -> Unit,
         ) {
             MainScope().launch(dispatcher) {
                 _eventFlow.collect {
@@ -62,11 +62,18 @@ object FlowBus {
             }
         }
 
+        /**
+         * 订阅消息
+         * @param lifecycleOwner LifecycleOwner
+         * @param state State 默认create，注意当是其他生命周期，可能跨页面收不到消息
+         * @param dispatcher CoroutineDispatcher 线程切换
+         * @param block Function1<T, Unit> 消息处理事件
+         */
         fun subscribe(
             lifecycleOwner: LifecycleOwner,
-            state: Lifecycle.State = Lifecycle.State.STARTED,
+            state: Lifecycle.State = Lifecycle.State.CREATED,
             dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
-            block: (T) -> Unit
+            block: (T) -> Unit,
         ) {
             lifecycleOwner.lifecycleScope.launch(dispatcher) {
                 lifecycleOwner.lifecycle.repeatOnLifecycle(state) {
