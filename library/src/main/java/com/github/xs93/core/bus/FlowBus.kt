@@ -44,6 +44,51 @@ object FlowBus {
     }
 
 
+    fun <T> post(key: String, value: T) {
+        with<T>(key).post(value)
+    }
+
+    fun <T> postSticky(key: String, value: T) {
+        withSticky<T>(key).post(value)
+    }
+
+    fun <T> subscribe(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
+        block: (T) -> Unit,
+    ) {
+        with<T>(key).subscribe(dispatcher, block)
+    }
+
+    fun <T> subscribe(
+        key: String,
+        lifecycleOwner: LifecycleOwner,
+        state: Lifecycle.State = Lifecycle.State.CREATED,
+        dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
+        block: (T) -> Unit,
+    ) {
+        with<T>(key).subscribe(lifecycleOwner, state, dispatcher, block)
+    }
+
+    fun <T> subscribeSticky(
+        key: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
+        block: (T) -> Unit,
+    ) {
+        withSticky<T>(key).subscribe(dispatcher, block)
+    }
+
+    fun <T> subscribeSticky(
+        key: String,
+        lifecycleOwner: LifecycleOwner,
+        state: Lifecycle.State = Lifecycle.State.CREATED,
+        dispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
+        block: (T) -> Unit,
+    ) {
+        withSticky<T>(key).subscribe(lifecycleOwner, state, dispatcher, block)
+    }
+
+
     open class EventBus<T>(private val key: String) {
         private val _eventFlow: MutableSharedFlow<T> by lazy {
             obtainEvent()

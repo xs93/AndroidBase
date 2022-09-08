@@ -26,27 +26,30 @@ class MainActivity : BaseVbActivity<ActivityMainBinding>() {
         window.isSystemBarsTranslucentCompat = true
         window.statusBarColor = getColorCompat(com.github.xs93.core.R.color.transparent)
 
-//        window.isSystemBarsTranslucentCompat = true
-//        window.isAllowForceDarkCompat = true
-//        window.isLightStatusBarsCompat = true
-//        window.isLightNavigationBarCompat = true
+        mBinding.clickEvent = ClickEvent()
+//        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
+////            ToastUtils.show(it + " " + Thread.currentThread().name)
+//        }
 
-//        mBinding.clickEvent = ClickEvent()
-        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
+        FlowBus.subscribe<String>("TestBus") {
             ToastUtils.show(it + " " + Thread.currentThread().name)
         }
 
-        FlowBus.withSticky<String>("testSticky").subscribe {
-            ToastUtils.show(it)
+        FlowBus.subscribeSticky<String>("testSticky") {
+            ToastUtils.show(it + " " + Thread.currentThread().name)
         }
+//        FlowBus.withSticky<String>("testSticky").subscribe {
+//            ToastUtils.show(it)
+//        }
     }
 
     inner class ClickEvent {
 
         fun clickFullScreenDialog(view: View) {
-
-//            FlowBus.with<String>("TestBus").post("测试bus")
-            FlowBus.withSticky<String>("testSticky").post("测试Sticky")
+//            FlowBus.post("TestBus", "TestBus")
+//            FlowBus.with<String>("TestBus").post("TestBus")
+            FlowBus.postSticky("testSticky", "测试Sticky")
+//            FlowBus.withSticky<String>("testSticky").post("测试Sticky")
             Handler(Looper.getMainLooper()).postDelayed(3000L) {
                 val dialog = FullScreenDialogFragment()
                 dialog.show(supportFragmentManager, "FullScreenDialogFragment")

@@ -50,10 +50,11 @@
             android:max="10"
             android:progress="3" />
 
-        <!--        <Button-->
-        <!--            android:id="@+id/button"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="FullScreenDialog" />-->
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            onSingleClick="@{clickEvent::clickFullScreenDialog}"
+            android:layout_height="wrap_content"
+            android:text="FullScreenDialog" />
     </LinearLayout>
 </layout>
