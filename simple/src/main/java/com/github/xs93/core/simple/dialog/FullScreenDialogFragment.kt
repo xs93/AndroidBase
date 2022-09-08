@@ -12,6 +12,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.github.xs93.core.base.ui.viewbinding.BaseVbDialogFragment
 import com.github.xs93.core.bus.FlowBus
+import com.github.xs93.core.ktx.repeatOnLifecycle
 import com.github.xs93.core.simple.databinding.DialogFullScreenBinding
 import com.github.xs93.core.utils.toast.ToastUtils
 

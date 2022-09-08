@@ -10,6 +10,8 @@ import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.getColorCompat
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
+import com.github.xs93.core.ktx.launcher
+import com.github.xs93.core.ktx.repeatOnLifecycle
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
 import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
 import com.github.xs93.core.utils.toast.ToastUtils
