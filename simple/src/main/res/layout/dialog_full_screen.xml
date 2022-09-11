@@ -4,11 +4,16 @@
 
     <data>
 
+        <variable
+            name="suface"
+            type="com.github.xs93.core.ui.Surface" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="@{suface.insets.top}"
+        android:paddingBottom="@{suface.insets.bottom}"
         android:background="#00f0f0">
 
         <androidx.constraintlayout.widget.ConstraintLayout

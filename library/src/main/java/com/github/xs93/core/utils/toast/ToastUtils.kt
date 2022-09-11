@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Handler
 import android.widget.Toast
+import androidx.annotation.StringRes
 import java.lang.reflect.Field
 
 /**
@@ -34,6 +35,12 @@ object ToastUtils {
         transform?.invoke(toast)
         hook(toast)
         toast.show()
+    }
+
+    @JvmStatic
+    fun show(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT, transform: ((Toast) -> Unit)? = null) {
+        val content = mContext.getString(resId)
+        show(content, duration, transform)
     }
 
     /** 修复版本7.1.1 toast显示错误bug */

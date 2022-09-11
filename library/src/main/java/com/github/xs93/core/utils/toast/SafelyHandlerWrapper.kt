@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.github.xs93.core.utils.toast
 
 import android.os.Handler

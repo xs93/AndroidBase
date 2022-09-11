@@ -2,9 +2,10 @@ package com.github.xs93.core.base.ui.vbvm
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.LayoutRes
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewbinding.ViewBinding
 import com.github.xs93.core.base.ui.viewbinding.BaseVbDialogFragment
 import com.github.xs93.core.base.viewmodel.BaseViewModel
 import com.github.xs93.core.utils.ClassUtils
@@ -18,7 +19,8 @@ import java.lang.reflect.Modifier
  * @date   2022/5/15-15:41
  * @email  466911254@qq.com
  */
-abstract class BaseVbVmDialogFragment<VB : ViewBinding, VM : BaseViewModel> : BaseVbDialogFragment<VB>() {
+abstract class BaseVbVmDialogFragment<VB : ViewDataBinding, VM : BaseViewModel>(@LayoutRes layoutId: Int) :
+    BaseVbDialogFragment<VB>(layoutId) {
 
     /** 泛型中的默认ViewModel对象 */
     protected lateinit var mViewModel: VM

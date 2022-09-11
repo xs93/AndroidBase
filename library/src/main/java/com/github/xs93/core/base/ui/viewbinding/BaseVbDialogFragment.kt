@@ -1,12 +1,11 @@
 package com.github.xs93.core.base.ui.viewbinding
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.viewbinding.ViewBinding
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.github.xs93.core.base.ui.function.BaseFunctionDialogFragment
-import java.lang.reflect.ParameterizedType
 
 /**
  *
@@ -16,46 +15,18 @@ import java.lang.reflect.ParameterizedType
  * @date   2022/5/15-15:38
  * @email  466911254@qq.com
  */
-abstract class BaseVbDialogFragment<VB : ViewBinding> : BaseFunctionDialogFragment(), IFragmentViewBinding<VB> {
+abstract class BaseVbDialogFragment<VB : ViewDataBinding>(@LayoutRes val layoutId: Int) : BaseFunctionDialogFragment() {
 
     private var _mBinding: VB? = null
     protected val mBinding get() = _mBinding!!
 
     override fun getContentLayoutId(): Int {
-        return 0
+        return layoutId
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _mBinding = createViewBinding(layoutInflater, container)
-        if (_mBinding == null) {
-            _mBinding = createViewBindingByReflect(layoutInflater, container)
-        }
-        checkNotNull(_mBinding) { "rootViewBinding 初始化失败" }
-        return _mBinding!!.root
-    }
-
-    override fun createViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB? {
-        return null
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    override fun createViewBindingByReflect(inflater: LayoutInflater, container: ViewGroup?): VB? {
-        try {
-            val type = javaClass.genericSuperclass
-            if (type is ParameterizedType) {
-                val vbClass = type.actualTypeArguments.filterIsInstance<Class<VB>>()
-                val method = vbClass[0].getDeclaredMethod(
-                    "inflate",
-                    LayoutInflater::class.java,
-                    ViewGroup::class.java,
-                    Boolean::class.javaPrimitiveType
-                )
-                return method.invoke(null, inflater, container, false) as VB
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
+    override fun beforeInitView(view: View, savedInstanceState: Bundle?) {
+        super.beforeInitView(view, savedInstanceState)
+        _mBinding = DataBindingUtil.bind(view)
     }
 
     override fun onDestroyView() {

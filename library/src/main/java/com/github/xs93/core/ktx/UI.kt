@@ -40,6 +40,8 @@ var Window.isSystemBarsTranslucentCompat: Boolean
                                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION).inv()
                 }
         }
+        statusBarColor = Color.TRANSPARENT
+        navigationBarColor = Color.TRANSPARENT
 
         if (Build.VERSION.SDK_INT >= 28) {
             if (value) {

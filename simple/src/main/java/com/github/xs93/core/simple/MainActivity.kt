@@ -5,19 +5,15 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.core.os.postDelayed
-import androidx.lifecycle.Lifecycle
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.getColorCompat
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
-import com.github.xs93.core.ktx.launcher
-import com.github.xs93.core.ktx.repeatOnLifecycle
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
 import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
 import com.github.xs93.core.utils.toast.ToastUtils
-import kotlinx.coroutines.Dispatchers
 
-class MainActivity : BaseVbActivity<ActivityMainBinding>() {
+class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -42,6 +38,11 @@ class MainActivity : BaseVbActivity<ActivityMainBinding>() {
 //            ToastUtils.show(it)
 //        }
     }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
+    }
+
 
     inner class ClickEvent {
 

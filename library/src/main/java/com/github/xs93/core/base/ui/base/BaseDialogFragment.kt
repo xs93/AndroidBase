@@ -51,6 +51,8 @@ abstract class BaseDialogFragment : DialogFragment() {
         }
         beforeInitView(view, savedInstanceState)
         initView(view, savedInstanceState)
+        beforeInitData(savedInstanceState)
+        initData(savedInstanceState)
     }
 
     protected open fun getStyle(): Int {
@@ -65,6 +67,11 @@ abstract class BaseDialogFragment : DialogFragment() {
 
     /** 初始化View */
     abstract fun initView(view: View, savedInstanceState: Bundle?)
+
+    open fun beforeInitData(savedInstanceState: Bundle?) {}
+
+    /** 初始化数据 */
+    abstract fun initData(savedInstanceState: Bundle?)
 
     /**
      * 使用此方法显示弹出框，可以避免生命周期状态错误导致的异常(Can not perform this action after onSaveInstanceState)

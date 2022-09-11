@@ -30,6 +30,8 @@ abstract class BaseActivity : AppCompatActivity() {
             setContentView(getContentLayoutId())
         } else if (getContentView() != null) {
             setContentView(getContentView())
+        } else {
+            customSetContentView()
         }
 
         window.decorView.setOnInsertsChangedListener {
@@ -38,6 +40,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
         beforeInitView(savedInstanceState)
         initView(savedInstanceState)
+        beforeInitData(savedInstanceState)
+        initData(savedInstanceState)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -68,11 +72,20 @@ abstract class BaseActivity : AppCompatActivity() {
     /**返回ContentView*/
     abstract fun getContentView(): View?
 
+    /** 自定义如何去调用SetContentView方法，调用此方法前提是 getContentLayoutId ==0 并且 getContentView ==null */
+    open fun customSetContentView() {}
+
     /**在initView方法之前执行*/
     open fun beforeInitView(savedInstanceState: Bundle?) {}
 
     /**初始化View*/
     abstract fun initView(savedInstanceState: Bundle?)
+
+    /**在 initData 方法之前执行*/
+    open fun beforeInitData(savedInstanceState: Bundle?) {}
+
+    /** 初始化数据 */
+    abstract fun initData(savedInstanceState: Bundle?)
 
     /**
      * 是否在Resume显示期间

@@ -60,8 +60,9 @@ abstract class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         beforeInitView(view, savedInstanceState)
         initView(view, savedInstanceState)
-        initObserver(view, savedInstanceState)
         mInitView = true
+        beforeInitData(savedInstanceState)
+        initData(savedInstanceState)
     }
 
     @Deprecated("Deprecated in Java")
@@ -113,15 +114,15 @@ abstract class BaseFragment : Fragment() {
     abstract fun getContentLayoutId(): Int
 
 
-    open fun beforeInitView(view: View, savedInstanceState: Bundle?) {
-
-    }
+    open fun beforeInitView(view: View, savedInstanceState: Bundle?) {}
 
     /** 初始化View */
     abstract fun initView(view: View, savedInstanceState: Bundle?)
 
-    /** 初始化监听 */
-    abstract fun initObserver(view: View, savedInstanceState: Bundle?)
+    open fun beforeInitData(savedInstanceState: Bundle?) {}
+
+    /** 初始化数据 */
+    abstract fun initData(savedInstanceState: Bundle?)
 
     /** 该fragment 第一次被显示时调用,可用作懒加载 */
     open fun onFirstVisible() {}
