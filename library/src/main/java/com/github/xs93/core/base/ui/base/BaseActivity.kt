@@ -40,6 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         beforeInitView(savedInstanceState)
         initView(savedInstanceState)
+        initObserver(savedInstanceState)
         beforeInitData(savedInstanceState)
         initData(savedInstanceState)
     }
@@ -81,11 +82,14 @@ abstract class BaseActivity : AppCompatActivity() {
     /**初始化View*/
     abstract fun initView(savedInstanceState: Bundle?)
 
+    /** 初始化订阅观察者 */
+    open fun initObserver(savedInstanceState: Bundle?) {}
+
     /**在 initData 方法之前执行*/
     open fun beforeInitData(savedInstanceState: Bundle?) {}
 
     /** 初始化数据 */
-    abstract fun initData(savedInstanceState: Bundle?)
+    open fun initData(savedInstanceState: Bundle?) {}
 
     /**
      * 是否在Resume显示期间

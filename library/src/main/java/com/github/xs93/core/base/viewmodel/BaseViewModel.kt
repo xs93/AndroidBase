@@ -1,6 +1,9 @@
 package com.github.xs93.core.base.viewmodel
 
 import androidx.lifecycle.*
+import com.github.xs93.core.ktx.launcher
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 /**
  *
@@ -19,8 +22,23 @@ abstract class BaseViewModel : ViewModel(), LifecycleEventObserver {
         }
     }
 
+    private val mLoadingDialogFlow: MutableSharedFlow<Boolean> = MutableSharedFlow()
+    val loadDialogFlow: SharedFlow<Boolean> = mLoadingDialogFlow
+
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
 
+    }
+
+    fun showLoadingDialog() {
+        launcher {
+            mLoadingDialogFlow.emit(true)
+        }
+    }
+
+    fun hideLoadingDialog() {
+        launcher {
+            mLoadingDialogFlow.emit(false)
+        }
     }
 }
 

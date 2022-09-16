@@ -61,6 +61,7 @@ abstract class BaseFragment : Fragment() {
         beforeInitView(view, savedInstanceState)
         initView(view, savedInstanceState)
         mInitView = true
+        initObserver(savedInstanceState)
         beforeInitData(savedInstanceState)
         initData(savedInstanceState)
     }
@@ -120,6 +121,9 @@ abstract class BaseFragment : Fragment() {
     abstract fun initView(view: View, savedInstanceState: Bundle?)
 
     open fun beforeInitData(savedInstanceState: Bundle?) {}
+
+    /** 初始化订阅观察者 */
+    open fun initObserver(savedInstanceState: Bundle?) {}
 
     /** 初始化数据 */
     abstract fun initData(savedInstanceState: Bundle?)
