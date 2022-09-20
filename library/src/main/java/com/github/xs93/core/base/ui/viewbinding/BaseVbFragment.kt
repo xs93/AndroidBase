@@ -18,7 +18,7 @@ import com.github.xs93.core.base.ui.function.BaseFunctionFragment
 abstract class BaseVbFragment<VB : ViewDataBinding>(@LayoutRes val layoutId: Int) : BaseFunctionFragment() {
 
     private var _mBinding: VB? = null
-    protected val mBinding get() = _mBinding!!
+    protected val binding get() = _mBinding!!
 
     override fun getContentLayoutId(): Int {
         return layoutId

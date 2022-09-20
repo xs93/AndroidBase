@@ -16,7 +16,7 @@ import com.github.xs93.core.base.ui.function.BaseFunctionActivity
  */
 abstract class BaseVbActivity<VB : ViewDataBinding>(@LayoutRes val layoutId: Int) : BaseFunctionActivity() {
 
-    protected lateinit var mBinding: VB
+    protected lateinit var binding: VB
 
     override fun getContentLayoutId(): Int {
         return 0
@@ -28,6 +28,6 @@ abstract class BaseVbActivity<VB : ViewDataBinding>(@LayoutRes val layoutId: Int
 
     override fun customSetContentView() {
         super.customSetContentView()
-        mBinding = DataBindingUtil.setContentView(this, layoutId)
+        binding = DataBindingUtil.setContentView(this, layoutId)
     }
 }

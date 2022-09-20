@@ -22,12 +22,12 @@ abstract class BaseVbVmActivity<VB : ViewDataBinding, VM : BaseViewModel>(@Layou
     BaseVbActivity<VB>(layoutId) {
 
     /** 泛型中的默认ViewModel对象 */
-    protected lateinit var mViewModel: VM
+    protected lateinit var viewModel: VM
 
     override fun beforeInitView(savedInstanceState: Bundle?) {
         super.beforeInitView(savedInstanceState)
         val vm = createViewModel()
-        mViewModel = if (vm != null) {
+        viewModel = if (vm != null) {
             ViewModelProvider(this, BaseViewModel.createViewModelFactory(vm))[vm::class.java]
         } else {
             val clazz: Class<VM>? = ClassUtils.getGenericClassByClass(this, ViewModel::class.java)
@@ -41,7 +41,7 @@ abstract class BaseVbVmActivity<VB : ViewDataBinding, VM : BaseViewModel>(@Layou
             }
             ViewModelProvider(this)[clazz]
         }
-        lifecycle.addObserver(mViewModel)
+        lifecycle.addObserver(viewModel)
     }
 
     /**

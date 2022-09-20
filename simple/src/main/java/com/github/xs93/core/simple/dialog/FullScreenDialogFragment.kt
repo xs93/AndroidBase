@@ -38,7 +38,7 @@ class FullScreenDialogFragment : BaseVbDialogFragment<DialogFullScreenBinding>(R
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mBinding.suface = surface
+        binding.suface = surface
         FlowBus.withSticky<String>("testSticky").subscribe(viewLifecycleOwner) {
             ToastUtils.show(it + "FullScreenDialogFragment")
         }

@@ -18,7 +18,7 @@ import com.github.xs93.core.base.ui.function.BaseFunctionDialogFragment
 abstract class BaseVbDialogFragment<VB : ViewDataBinding>(@LayoutRes val layoutId: Int) : BaseFunctionDialogFragment() {
 
     private var _mBinding: VB? = null
-    protected val mBinding get() = _mBinding!!
+    protected val binding get() = _mBinding!!
 
     override fun getContentLayoutId(): Int {
         return layoutId

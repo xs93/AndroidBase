@@ -18,11 +18,11 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
 
     override fun initView(savedInstanceState: Bundle?) {
         ToastUtils.init(this)
-        mBinding.surface = surface
+        binding.surface = surface
         window.isSystemBarsTranslucentCompat = true
         window.statusBarColor = getColorCompat(com.github.xs93.core.R.color.transparent)
 
-        mBinding.clickEvent = ClickEvent()
+        binding.clickEvent = ClickEvent()
 //        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
 ////            ToastUtils.show(it + " " + Thread.currentThread().name)
 //        }

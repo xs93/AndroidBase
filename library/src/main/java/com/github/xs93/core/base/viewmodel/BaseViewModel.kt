@@ -23,7 +23,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleEventObserver {
     }
 
     private val mLoadingDialogFlow: MutableSharedFlow<Boolean> = MutableSharedFlow()
-    val loadDialogFlow: SharedFlow<Boolean> = mLoadingDialogFlow
+    val loadingDialogFlow: SharedFlow<Boolean> = mLoadingDialogFlow
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
 
