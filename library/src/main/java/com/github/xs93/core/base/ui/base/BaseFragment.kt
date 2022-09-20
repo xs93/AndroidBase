@@ -126,7 +126,7 @@ abstract class BaseFragment : Fragment() {
     open fun initObserver(savedInstanceState: Bundle?) {}
 
     /** 初始化数据 */
-    abstract fun initData(savedInstanceState: Bundle?)
+    open fun initData(savedInstanceState: Bundle?) {}
 
     /** 该fragment 第一次被显示时调用,可用作懒加载 */
     open fun onFirstVisible() {}
