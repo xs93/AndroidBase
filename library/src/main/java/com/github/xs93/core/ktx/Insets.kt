@@ -19,7 +19,7 @@ fun Insets.landscape(context: Context): Insets {
     val displayMetrics = context.resources.displayMetrics
 
     val landscapeMinWidthDp = context.getAppMateData().getInt("surface_landscape_min_width_dp")
-    val minWidth = context.dpToPx(landscapeMinWidthDp)
+    val minWidth = landscapeMinWidthDp.dp(context)
 
     val width = displayMetrics.widthPixels
     val height = displayMetrics.heightPixels

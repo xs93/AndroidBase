@@ -2,8 +2,12 @@
 
 package com.github.xs93.core.ktx
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.text.Spanned
 import androidx.annotation.*
 import androidx.core.content.ContextCompat
@@ -16,28 +20,6 @@ import androidx.core.content.ContextCompat
  * @date 2022/8/19 16:52
  * @email 466911254@qq.com
  */
-
-
-fun Context.dpToPx(dpValue: Float): Int {
-    val scale = resources.displayMetrics.density
-    return (dpValue * scale + 0.5f).toInt()
-}
-
-fun Context.dpToPx(dpValue: Int): Int {
-    val scale = resources.displayMetrics.density
-    return (dpValue * scale + 0.5f).toInt()
-}
-
-
-fun Context.pxToDp(pxValue: Int): Float {
-    val scale = resources.displayMetrics.density
-    return pxValue / scale
-}
-
-fun Context.pxToDp(pxValue: Float): Float {
-    val scale = resources.displayMetrics.density
-    return pxValue / scale
-}
 
 fun Context.getPixel(@DimenRes id: Int): Float {
     return resources.getDimension(id)
@@ -67,3 +49,58 @@ fun Context.checkSelfPermissionCompat(@NonNull permission: String): Int {
 fun Context.getHtml(@StringRes resId: Int): Spanned {
     return fromHtmlCompat(getString(resId))
 }
+
+fun Context.copy(content: String, label: String = "label"): Boolean {
+    return try {
+        val cm: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText(label, content)
+        cm.setPrimaryClip(clipData)
+        true
+    } catch (e: Exception) {
+        false
+    }
+}
+
+val Context.appName: String
+    get() {
+        var appName = ""
+        try {
+            val packageManager = packageManager
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            val labelRes = packageInfo.applicationInfo.labelRes
+            appName = resources.getString(labelRes)
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return appName
+    }
+
+val Context.appVersionName: String
+    get() {
+        var versionName = ""
+        try {
+            val packageManager = packageManager
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            versionName = packageInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return versionName
+    }
+
+val Context.appVersionCode: Long
+    get() {
+        var versionCode: Long = -1L
+        try {
+            val packageManager = packageManager
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                packageInfo.longVersionCode
+            } else {
+                packageInfo.versionCode.toLong()
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return versionCode
+    }
