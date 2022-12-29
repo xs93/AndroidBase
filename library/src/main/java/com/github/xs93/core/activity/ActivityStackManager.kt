@@ -6,6 +6,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import java.util.*
+import kotlin.system.exitProcess
 
 /**
  * App 的全局Activity 对象配置
@@ -190,5 +191,15 @@ object ActivityStackManager {
                 finishActivity(activity)
             }
         }
+    }
+
+    /**
+     * 关闭App 所有activity，并且杀死进程，退出app
+     */
+    @JvmStatic
+    fun exitApp() {
+        finishAllActivity()
+        android.os.Process.killProcess(android.os.Process.myPid())
+        exitProcess(0)
     }
 }

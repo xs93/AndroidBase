@@ -13,51 +13,51 @@ import android.content.res.Resources
  * @date 2022/11/1 10:36
  * @email 466911254@qq.com
  */
-fun Float.dp(context: Context?): Int {
+fun Float.dp(context: Context? = null): Int {
     val resource = context?.resources ?: Resources.getSystem()
     val scale = resource.displayMetrics.density
     return (this * scale + 0.5f).toInt()
 }
 
-fun Float.toDp(context: Context?): Float {
-    val resource = context?.resources ?: Resources.getSystem()
-    val scale = resource.displayMetrics.density
-    return this / scale
-}
-
-fun Float.sp(context: Context?): Int {
-    val resource = context?.resources ?: Resources.getSystem()
-    val scale = resource.displayMetrics.scaledDensity
-    return (this * scale + 0.5f).toInt()
-}
-
-fun Float.toSp(context: Context?): Float {
-    val resource = context?.resources ?: Resources.getSystem()
-    val scale = resource.displayMetrics.scaledDensity
-    return this / scale
-}
-
-
-fun Int.dp(context: Context?): Int {
-    val resource = context?.resources ?: Resources.getSystem()
-    val scale = resource.displayMetrics.density
-    return (this * scale + 0.5f).toInt()
-}
-
-fun Int.toDp(context: Context?): Float {
+fun Float.toDp(context: Context? = null): Float {
     val resource = context?.resources ?: Resources.getSystem()
     val scale = resource.displayMetrics.density
     return this / scale
 }
 
-fun Int.sp(context: Context?): Int {
+fun Float.sp(context: Context? = null): Int {
+    val resource = context?.resources ?: Resources.getSystem()
+    val scale = resource.displayMetrics.scaledDensity
+    return (this * scale + 0.5f).toInt()
+}
+
+fun Float.toSp(context: Context? = null): Float {
+    val resource = context?.resources ?: Resources.getSystem()
+    val scale = resource.displayMetrics.scaledDensity
+    return this / scale
+}
+
+
+fun Int.dp(context: Context? = null): Int {
+    val resource = context?.resources ?: Resources.getSystem()
+    val scale = resource.displayMetrics.density
+    return (this * scale + 0.5f).toInt()
+}
+
+fun Int.toDp(context: Context? = null): Float {
+    val resource = context?.resources ?: Resources.getSystem()
+    val scale = resource.displayMetrics.density
+    return this / scale
+}
+
+fun Int.sp(context: Context? = null): Int {
     val resource = context?.resources ?: Resources.getSystem()
     val scale = resource.displayMetrics.scaledDensity
     return (this * scale + 0.5f).toInt()
 }
 
 
-fun Int.toSp(context: Context?): Float {
+fun Int.toSp(context: Context? = null): Float {
     val resource = context?.resources ?: Resources.getSystem()
     val scale = resource.displayMetrics.scaledDensity
     return this / scale

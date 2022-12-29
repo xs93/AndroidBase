@@ -30,7 +30,7 @@ class PingUtils {
             val connect = status == 0
             val pingString = result[1]
             if (pingString.isBlank() && status != 0) {
-                return PingResult(url, domain, connect, status, count, timeOut)
+                return PingResult(url, domain, false, status, count, timeOut)
             }
             try {
                 //解析丢包率
@@ -111,6 +111,7 @@ class PingUtils {
                     result = sb.toString()
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
             } finally {
                 process?.destroy()
             }
