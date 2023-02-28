@@ -1,4 +1,4 @@
-package com.github.xs93.core.simple
+package com.github.xs93.core.simple.activity
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,6 +9,7 @@ import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.getColorCompat
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
+import com.github.xs93.core.simple.R
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
 import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
 import com.github.xs93.core.utils.toast.ToastUtils

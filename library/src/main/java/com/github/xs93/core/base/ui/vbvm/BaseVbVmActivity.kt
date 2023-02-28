@@ -18,7 +18,7 @@ import java.lang.reflect.Modifier
  * @date   2022/5/11-0:47
  * @email  466911254@qq.com
  */
-abstract class BaseVbVmActivity<VB : ViewDataBinding, VM : BaseViewModel>(@LayoutRes layoutId: Int) :
+abstract class BaseVbVmActivity<VB : ViewDataBinding, VM : BaseViewModel<*, *, *>>(@LayoutRes layoutId: Int) :
     BaseVbActivity<VB>(layoutId) {
 
     /** 泛型中的默认ViewModel对象 */

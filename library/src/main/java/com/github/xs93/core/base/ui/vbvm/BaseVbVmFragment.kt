@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.xs93.core.base.ui.viewbinding.BaseVbFragment
 import com.github.xs93.core.base.viewmodel.BaseViewModel
+import com.github.xs93.core.ktx.repeatOnLifecycle
 import com.github.xs93.core.utils.ClassUtils
 import java.lang.reflect.Modifier
 
@@ -19,7 +21,7 @@ import java.lang.reflect.Modifier
  * @date   2022/5/12-20:56
  * @email  466911254@qq.com
  */
-abstract class BaseVbVmFragment<VB : ViewDataBinding, VM : BaseViewModel>(@LayoutRes layoutId: Int) :
+abstract class BaseVbVmFragment<VB : ViewDataBinding, VM : BaseViewModel<*, *, *>>(@LayoutRes layoutId: Int) :
     BaseVbFragment<VB>(layoutId) {
 
     /** 泛型中的默认ViewModel对象 */
@@ -51,5 +53,14 @@ abstract class BaseVbVmFragment<VB : ViewDataBinding, VM : BaseViewModel>(@Layou
      */
     protected open fun createViewModel(): VM? {
         return null
+    }
+
+    override fun initObserver(savedInstanceState: Bundle?) {
+        super.initObserver(savedInstanceState)
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewModel.uiStateFlow.collect {
+                
+            }
+        }
     }
 }

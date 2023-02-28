@@ -7,7 +7,7 @@
 
         <variable
             name="clickEvent"
-            type="com.github.xs93.core.simple.MainActivity.ClickEvent" />
+            type="com.github.xs93.core.simple.activity.MainActivity" />
 
         <variable
             name="surface"
@@ -20,7 +20,7 @@
         android:background="@color/teal_700"
         android:gravity="top"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".activity.MainActivity">
 
 
         <View
