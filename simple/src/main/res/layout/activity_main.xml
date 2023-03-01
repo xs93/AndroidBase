@@ -7,7 +7,7 @@
 
         <variable
             name="clickEvent"
-            type="com.github.xs93.core.simple.activity.MainActivity" />
+            type="com.github.xs93.core.simple.activity.MainActivity.ClickEvent" />
 
         <variable
             name="surface"
@@ -26,12 +26,13 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@{surface.insets.top,default = wrap_content}"
-            android:background="@color/black" />
+            android:background="@color/black"
+            tools:layout_height="0dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2222" />
+            android:text="@{@string/surface(surface.insets.start,surface.insets.top,surface.insets.end,surface.insets.bottom)}" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="0dp"
@@ -56,5 +57,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="FullScreenDialog" />
+
+        <Button
+            android:id="@+id/btn_fragment"
+            onSingleClick="@{()->clickEvent.clickFragment()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fragment" />
+
+        <FrameLayout
+            android:id="@+id/fl_frag_container"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp" />
+
     </LinearLayout>
 </layout>

@@ -1,4 +1,4 @@
-@file:Suppress("UNCHECKED_CAST", "unused")
+@file:Suppress("unused")
 
 package com.github.xs93.core.bus
 
@@ -27,6 +27,7 @@ object FlowBus {
     private val mEvents = ConcurrentHashMap<String, EventBus<*>>()
     private val mStickyEvents = ConcurrentHashMap<String, EventBus<*>>()
 
+    @Suppress("UNCHECKED_CAST")
     @Synchronized
     fun <T> with(key: String): EventBus<T> {
         if (!mEvents.containsKey(key)) {
@@ -35,6 +36,7 @@ object FlowBus {
         return mEvents[key] as EventBus<T>
     }
 
+    @Suppress("UNCHECKED_CAST")
     @Synchronized
     fun <T> withSticky(key: String): StickyEventBus<T> {
         if (!mStickyEvents.containsKey(key)) {

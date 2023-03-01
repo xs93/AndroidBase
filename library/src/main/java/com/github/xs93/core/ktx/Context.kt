@@ -5,6 +5,7 @@ package com.github.xs93.core.ktx
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -42,12 +43,12 @@ fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable? {
     return ContextCompat.getDrawable(this, id)
 }
 
-fun Context.checkSelfPermissionCompat(@NonNull permission: String): Int {
+fun Context.checkSelfPermissionCompat(permission: String): Int {
     return ContextCompat.checkSelfPermission(this, permission)
 }
 
 fun Context.getHtml(@StringRes resId: Int): Spanned {
-    return fromHtmlCompat(getString(resId))
+    return getString(resId).fromHtmlCompat()
 }
 
 fun Context.copy(content: String, label: String = "label"): Boolean {
@@ -61,12 +62,17 @@ fun Context.copy(content: String, label: String = "label"): Boolean {
     }
 }
 
+fun Context.isDebug(): Boolean {
+    val applicationInfo = applicationInfo
+    return applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+}
+
 val Context.appName: String
     get() {
         var appName = ""
         try {
             val packageManager = packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            val packageInfo = packageManager.getPackageInfoCompat(packageName, 0)
             val labelRes = packageInfo.applicationInfo.labelRes
             appName = resources.getString(labelRes)
         } catch (e: PackageManager.NameNotFoundException) {
@@ -80,7 +86,7 @@ val Context.appVersionName: String
         var versionName = ""
         try {
             val packageManager = packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            val packageInfo = packageManager.getPackageInfoCompat(packageName, 0)
             versionName = packageInfo.versionName
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
@@ -93,10 +99,11 @@ val Context.appVersionCode: Long
         var versionCode: Long = -1L
         try {
             val packageManager = packageManager
-            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            val packageInfo = packageManager.getPackageInfoCompat(packageName, 0)
             versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 packageInfo.longVersionCode
             } else {
+                @Suppress("DEPRECATION")
                 packageInfo.versionCode.toLong()
             }
         } catch (e: PackageManager.NameNotFoundException) {

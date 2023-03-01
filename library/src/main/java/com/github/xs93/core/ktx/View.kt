@@ -2,6 +2,7 @@
 
 package com.github.xs93.core.ktx
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
@@ -20,18 +21,20 @@ import androidx.databinding.BindingAdapter
 
 @BindingAdapter("singleClickInterval", "onSingleClick", requireAll = false)
 fun View.setSingleClickListener(
-    singleClickInterval: Long = 800,
+    singleClickInterval: Long? = 800,
     onSingleClick: View.OnClickListener? = null,
 ) {
-    setOnClickListener(SingleClickListener(singleClickInterval, onSingleClick))
+    val interval = singleClickInterval ?: 800
+    setOnClickListener(SingleClickListener(interval, onSingleClick))
 }
 
 @BindingAdapter("singleClickInterval", "onNavigationIconSingleClick", requireAll = false)
 fun Toolbar.setNavigationIconSingleClickListener(
-    singleClickInterval: Long = 800,
+    singleClickInterval: Long? = 800,
     onSingleClick: View.OnClickListener? = null,
 ) {
-    setNavigationOnClickListener(SingleClickListener(singleClickInterval, onSingleClick))
+    val interval = singleClickInterval ?: 800
+    setNavigationOnClickListener(SingleClickListener(interval, onSingleClick))
 }
 
 
@@ -126,4 +129,21 @@ fun View.safeRequestLayout() {
     } else {
         post { requestLayout() }
     }
+}
+
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun ViewGroup.inflate(layoutResId: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutResId, this, attachToRoot)
 }

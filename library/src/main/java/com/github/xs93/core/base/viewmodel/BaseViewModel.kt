@@ -30,13 +30,22 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
     }
 
     //state 保存UI状态
-    private val _uiStateFlow: MutableStateFlow<UiState> = MutableStateFlow(initUiState())
-    val uiStateFlow: StateFlow<UiState> = _uiStateFlow
+    private val _uiStateFlow: MutableStateFlow<UiState> by lazy {
+        MutableStateFlow(initUiState())
+    }
+    val uiStateFlow: StateFlow<UiState> by lazy {
+        _uiStateFlow
+    }
+
     protected abstract fun initUiState(): UiState
 
     //一次性消费事件，如toast，显示关闭弹窗等消息
-    private val _uiEventFlow: Channel<CommonUiEvent<UiEvent>> = Channel()
+    private val _uiEventFlow: Channel<UiEvent> = Channel()
     val uiEventFlow = _uiEventFlow.receiveAsFlow()
+
+    private val _commonEventFlow: Channel<CommonUiEvent> = Channel()
+    val commonEventFlow = _uiEventFlow.receiveAsFlow()
+
 
     private val _uiIntentFlow: Channel<UiIntent> = Channel()
     private val uiIntentFlow = _uiIntentFlow.receiveAsFlow()
@@ -56,7 +65,7 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
     }
 
     protected suspend fun sendUiEvent(uiEvent: UiEvent) {
-        _uiEventFlow.send(CommonUiEvent.UserEvent(uiEvent))
+        _uiEventFlow.send(uiEvent)
     }
 
     protected fun getString(@StringRes resId: Int, vararg any: Any?): String {
@@ -65,25 +74,25 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
 
     protected fun showToast(charSequence: CharSequence) {
         viewModelScope.launch {
-            _uiEventFlow.send(CommonUiEvent.Toast(charSequence))
+            _commonEventFlow.send(CommonUiEvent.ShowToast(charSequence))
         }
     }
 
     protected fun showToast(@StringRes resId: Int, vararg any: Any?) {
         viewModelScope.launch {
-            _uiEventFlow.send(CommonUiEvent.Toast(AppInject.getApp().getString(resId)))
+            _commonEventFlow.send(CommonUiEvent.ShowToast(AppInject.getApp().getString(resId, any)))
         }
     }
 
     protected fun showLoadingDialog() {
         viewModelScope.launch {
-            _uiEventFlow.send(CommonUiEvent.ShowLoadingDialog(true))
+            _commonEventFlow.send(CommonUiEvent.ShowLoadingDialog(true))
         }
     }
 
     protected fun hideLoadingDialog() {
         viewModelScope.launch {
-            _uiEventFlow.send(CommonUiEvent.ShowLoadingDialog(false))
+            _commonEventFlow.send(CommonUiEvent.ShowLoadingDialog(false))
         }
     }
 

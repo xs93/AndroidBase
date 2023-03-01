@@ -1,10 +1,13 @@
 package com.github.xs93.core.base.ui.base
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
 import com.github.xs93.core.ui.Surface
 
@@ -34,7 +37,10 @@ abstract class BaseActivity : AppCompatActivity() {
             customSetContentView()
         }
 
-        window.decorView.setOnInsertsChangedListener {
+
+        val viewGroup = window.decorView as ViewGroup
+        val contentView: View = findViewById(android.R.id.content)
+        contentView.setOnInsertsChangedListener {
             surface.insets = it
         }
 

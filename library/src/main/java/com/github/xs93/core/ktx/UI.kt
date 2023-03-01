@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("unused")
 
 package com.github.xs93.core.ktx
 
@@ -27,6 +27,7 @@ var Window.isSystemBarsTranslucentCompat: Boolean
         if (Build.VERSION.SDK_INT >= 30) {
             setDecorFitsSystemWindows(!value)
         } else {
+            @Suppress("DEPRECATION")
             decorView.systemUiVisibility =
                 if (value) {
                     decorView.systemUiVisibility or
@@ -59,6 +60,7 @@ var Window.isStatusBarTranslucentCompat: Boolean
         throw UnsupportedOperationException("set value only")
     }
     set(value) {
+        @Suppress("DEPRECATION")
         decorView.systemUiVisibility =
             if (value) {
                 decorView.systemUiVisibility or
@@ -96,6 +98,7 @@ var Window.isLightStatusBarsCompat: Boolean
                     )
                 }
             } else {
+                @Suppress("DEPRECATION")
                 decorView.systemUiVisibility =
                     decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
@@ -108,6 +111,7 @@ var Window.isLightStatusBarsCompat: Boolean
                     )
                 }
             } else {
+                @Suppress("DEPRECATION")
                 decorView.systemUiVisibility =
                     decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
             }
@@ -129,6 +133,7 @@ var Window.isLightNavigationBarCompat: Boolean
                     )
                 }
             } else {
+                @Suppress("DEPRECATION")
                 decorView.systemUiVisibility =
                     decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
             }
@@ -141,6 +146,7 @@ var Window.isLightNavigationBarCompat: Boolean
                     )
                 }
             } else {
+                @Suppress("DEPRECATION")
                 decorView.systemUiVisibility =
                     decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
             }

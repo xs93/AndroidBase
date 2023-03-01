@@ -5,11 +5,13 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
+
+    namespace 'com.github.xs93.core'
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -30,21 +32,29 @@ android {
         freeCompilerArgs += ['-module-name', "com.github.xs93.core"]
     }
 
+    packagingOptions {
+        resources {
+            /*kotlinx-coroutines-core包含协程正常运行不需要的资源文件，这些文件仅由调试器使用
+            在Android开发生成apk时可通过gradle配置在不损失功能的情况下避免apk中包含这些文件*/
+            excludes.add("DebugProbesKt.bin")
+        }
+    }
+
     buildFeatures {
         dataBinding true
     }
+
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
 
-
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

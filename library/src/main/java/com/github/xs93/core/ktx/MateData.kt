@@ -18,42 +18,54 @@ import android.os.Bundle
 
 
 fun Context.getAppMateData(): Bundle {
-    val info = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+    val info = packageManager.getApplicationInfoCompat(packageName, PackageManager.GET_META_DATA)
     return info.metaData
 }
 
 fun Context.getActivityMateData(clazz: String): Bundle {
     val componentName = ComponentName(this, clazz)
-    val info = packageManager.getActivityInfo(componentName, PackageManager.GET_META_DATA)
+    val info = packageManager.getActivityInfoCompat(componentName, PackageManager.GET_META_DATA)
     return info.metaData
 }
 
 fun Context.getActivityMateData(clazz: Class<*>): Bundle {
     val componentName = ComponentName(this, clazz)
-    val info = packageManager.getActivityInfo(componentName, PackageManager.GET_META_DATA)
+    val info = packageManager.getActivityInfoCompat(componentName, PackageManager.GET_META_DATA)
     return info.metaData
 }
 
 fun Context.getServiceMateData(clazz: String): Bundle {
     val componentName = ComponentName(this, clazz)
-    val info = packageManager.getServiceInfo(componentName, PackageManager.GET_META_DATA)
+    val info = packageManager.getServiceInfoCompat(componentName, PackageManager.GET_META_DATA)
     return info.metaData
 }
 
 fun Context.getServiceMateData(clazz: Class<*>): Bundle {
     val componentName = ComponentName(this, clazz)
-    val info = packageManager.getServiceInfo(componentName, PackageManager.GET_META_DATA)
+    val info = packageManager.getServiceInfoCompat(componentName, PackageManager.GET_META_DATA)
     return info.metaData
 }
 
 fun Context.getReceiverMateData(clazz: String): Bundle {
     val componentName = ComponentName(this, clazz)
-    val info = packageManager.getReceiverInfo(componentName, PackageManager.GET_META_DATA)
+    val info = packageManager.getReceiverInfoCompat(componentName, PackageManager.GET_META_DATA)
     return info.metaData
 }
 
 fun Context.getReceiverMateData(clazz: Class<*>): Bundle {
     val componentName = ComponentName(this, clazz)
-    val info = packageManager.getReceiverInfo(componentName, PackageManager.GET_META_DATA)
+    val info = packageManager.getReceiverInfoCompat(componentName, PackageManager.GET_META_DATA)
+    return info.metaData
+}
+
+fun Context.getProviderMateData(clazz: String): Bundle {
+    val componentName = ComponentName(this, clazz)
+    val info = packageManager.getProviderInfoCompat(componentName, PackageManager.GET_META_DATA)
+    return info.metaData
+}
+
+fun Context.getProviderMateData(clazz: Class<*>): Bundle {
+    val componentName = ComponentName(this, clazz)
+    val info = packageManager.getProviderInfoCompat(componentName, PackageManager.GET_META_DATA)
     return info.metaData
 }

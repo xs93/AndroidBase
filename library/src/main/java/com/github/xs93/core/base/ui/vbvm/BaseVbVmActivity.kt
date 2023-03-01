@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.base.viewmodel.BaseViewModel
+import com.github.xs93.core.base.viewmodel.CommonUiEvent
+import com.github.xs93.core.ktx.repeatOnStarted
 import com.github.xs93.core.utils.ClassUtils
+import com.github.xs93.core.utils.toast.ToastUtils
 import java.lang.reflect.Modifier
 
 /**
@@ -51,4 +54,25 @@ abstract class BaseVbVmActivity<VB : ViewDataBinding, VM : BaseViewModel<*, *, *
     protected open fun createViewModel(): VM? {
         return null
     }
+
+    override fun initObserver(savedInstanceState: Bundle?) {
+        super.initObserver(savedInstanceState)
+        repeatOnStarted {
+            viewModel.commonEventFlow.collect {
+                when (it) {
+                    is CommonUiEvent.ShowLoadingDialog -> {
+                        handleShowLoadingDialogEvent(it.show)
+                    }
+                    is CommonUiEvent.ShowToast -> {
+                        ToastUtils.show(it.charSequence, it.duration)
+                    }
+                }
+            }
+        }
+    }
+
+    protected open fun handleShowLoadingDialogEvent(showDialog: Boolean) {
+
+    }
+
 }

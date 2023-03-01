@@ -3,12 +3,16 @@ package com.github.xs93.core.base.ui.base
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import com.github.xs93.core.ktx.setOnInsertsChangedListener
+import com.github.xs93.core.ui.Surface
+import java.util.logging.Logger
 
 /**
  * 基础Fragment
@@ -18,6 +22,10 @@ import androidx.fragment.app.Fragment
  * @date 2021/11/4 11:25
  */
 abstract class BaseFragment : Fragment() {
+
+
+    protected val surface = Surface()
+
 
     private var mLazyLoad = false
 
@@ -49,6 +57,7 @@ abstract class BaseFragment : Fragment() {
      */
     private var mResume: Boolean = false
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (getContentLayoutId() != 0) {
             return inflater.inflate(getContentLayoutId(), container, false)
@@ -58,6 +67,9 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.setOnInsertsChangedListener {
+            surface.insets = it
+        }
         beforeInitView(view, savedInstanceState)
         initView(view, savedInstanceState)
         mInitView = true

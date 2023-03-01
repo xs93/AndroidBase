@@ -8,10 +8,12 @@ import androidx.core.os.postDelayed
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.getColorCompat
+import com.github.xs93.core.ktx.isStatusBarTranslucentCompat
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
 import com.github.xs93.core.simple.R
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
 import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
+import com.github.xs93.core.simple.fragment.TestInsertsFragment
 import com.github.xs93.core.utils.toast.ToastUtils
 
 class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -19,10 +21,10 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
 
     override fun initView(savedInstanceState: Bundle?) {
         ToastUtils.init(this)
+        window.apply {
+            isStatusBarTranslucentCompat = true
+        }
         binding.surface = surface
-        window.isSystemBarsTranslucentCompat = true
-        window.statusBarColor = getColorCompat(com.github.xs93.core.R.color.transparent)
-
         binding.clickEvent = ClickEvent()
 //        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
 ////            ToastUtils.show(it + " " + Thread.currentThread().name)
@@ -57,6 +59,12 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
                 dialog.show(supportFragmentManager, "FullScreenDialogFragment")
             }
 
+        }
+
+        fun clickFragment() {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fl_frag_container, TestInsertsFragment.newInstance())
+                .commitAllowingStateLoss()
         }
     }
 }

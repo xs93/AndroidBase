@@ -1,15 +1,14 @@
-@file:Suppress("DEPRECATION")
-
 package com.github.xs93.core.crash
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
 import android.os.Process
 import com.github.xs93.core.activity.ActivityStackManager
+import com.github.xs93.core.ktx.appVersionCode
+import com.github.xs93.core.ktx.appVersionName
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
@@ -131,22 +130,12 @@ object CrashHandler : Thread.UncaughtExceptionHandler {
      */
     @SuppressLint("ObsoleteSdkInt")
     private fun createLogHead(context: Context): String {
-        var versionCode = 0
-        var versionName: String? = null
-        try {
-            val pi = context.packageManager.getPackageInfo(context.packageName, 0)
-            if (pi != null) {
-                versionName = pi.versionName
-                versionCode = pi.versionCode
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            versionName = "获取版本信息错误"
-            versionCode = -1
-        }
+        val versionName: String = context.appVersionName
+        val versionCode: Long = context.appVersionCode
         val abis: Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Build.SUPPORTED_ABIS
         } else {
+            @Suppress("DEPRECATION")
             arrayOf(Build.CPU_ABI, Build.CPU_ABI2)
         }
         val abiStr = StringBuilder()

@@ -3,7 +3,6 @@
 package com.github.xs93.core.ktx
 
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +31,7 @@ fun ViewModel.launcher(
     }
 }
 
-fun AppCompatActivity.launcher(
+fun ComponentActivity.launcher(
     context: CoroutineContext = EmptyCoroutineContext,
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit,
@@ -46,9 +45,18 @@ fun ComponentActivity.repeatOnLifecycle(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit,
 ): Job {
-    return lifecycleScope.launch(context, start) {
+
+    return launcher(context, start) {
         repeatOnLifecycle(state, block)
     }
+}
+
+fun ComponentActivity.repeatOnStarted(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit,
+): Job {
+    return repeatOnLifecycle(Lifecycle.State.STARTED, context, start, block)
 }
 
 fun Fragment.launcher(
@@ -56,7 +64,7 @@ fun Fragment.launcher(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit,
 ): Job {
-    return lifecycleScope.launch(context, start, block)
+    return viewLifecycleOwner.lifecycleScope.launch(context, start, block)
 }
 
 fun Fragment.repeatOnLifecycle(
@@ -65,7 +73,15 @@ fun Fragment.repeatOnLifecycle(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScope.() -> Unit,
 ): Job {
-    return lifecycleScope.launch(context, start) {
+    return launcher(context, start) {
         repeatOnLifecycle(state, block)
     }
+}
+
+fun Fragment.repeatOnStarted(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit,
+): Job {
+    return repeatOnLifecycle(Lifecycle.State.STARTED, context, start, block)
 }

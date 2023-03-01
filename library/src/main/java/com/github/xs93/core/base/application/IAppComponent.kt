@@ -33,7 +33,7 @@ interface IAppComponent {
 
     }
 
-    fun onConfigurationChanged(application: Application, @NonNull newConfig: Configuration) {
+    fun onConfigurationChanged(application: Application, newConfig: Configuration) {
 
     }
 }

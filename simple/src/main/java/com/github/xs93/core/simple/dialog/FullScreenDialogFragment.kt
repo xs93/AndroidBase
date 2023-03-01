@@ -50,8 +50,6 @@ class FullScreenDialogFragment : BaseVbDialogFragment<DialogFullScreenBinding>(R
             isSystemBarsTranslucentCompat = true
             setGravity(Gravity.BOTTOM)
             setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-            statusBarColor = Color.WHITE
-            navigationBarColor = Color.WHITE
         }
     }
 

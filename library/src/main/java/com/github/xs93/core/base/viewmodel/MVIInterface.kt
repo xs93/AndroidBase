@@ -1,5 +1,6 @@
 package com.github.xs93.core.base.viewmodel
 
+import android.widget.Toast
 import androidx.annotation.Keep
 
 /**
@@ -16,10 +17,10 @@ import androidx.annotation.Keep
 interface IUIEvent
 
 @Keep
-sealed class CommonUiEvent<out T : IUIEvent> {
-    data class Toast(val charSequence: CharSequence) : CommonUiEvent<Nothing>()
-    data class ShowLoadingDialog(val show: Boolean) : CommonUiEvent<Nothing>()
-    data class UserEvent<out T : IUIEvent>(val t: T) : CommonUiEvent<T>()
+sealed class CommonUiEvent : IUIEvent {
+    data class ShowToast(val charSequence: CharSequence, val duration: Int = Toast.LENGTH_SHORT) : CommonUiEvent()
+
+    data class ShowLoadingDialog(val show: Boolean) : CommonUiEvent()
 }
 
 @Keep

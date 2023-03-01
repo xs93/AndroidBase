@@ -45,7 +45,8 @@ abstract class BaseDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dialog?.window?.apply {
-            decorView.setOnInsertsChangedListener {
+            val contentView: View = decorView.findViewById(android.R.id.content)
+            contentView.setOnInsertsChangedListener {
                 surface.insets = it
             }
         }

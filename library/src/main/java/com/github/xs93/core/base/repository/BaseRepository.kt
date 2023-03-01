@@ -10,4 +10,14 @@ package com.github.xs93.core.base.repository
  * @date 2022/5/17 17:34
  */
 open class BaseRepository {
+
+
+    protected suspend fun <T> call(block: suspend () -> T?): T? {
+        return try {
+            block.invoke()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

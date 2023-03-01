@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.xs93.core.base.ui.viewbinding.BaseVbFragment
 import com.github.xs93.core.base.viewmodel.BaseViewModel
-import com.github.xs93.core.ktx.repeatOnLifecycle
+import com.github.xs93.core.base.viewmodel.CommonUiEvent
+import com.github.xs93.core.ktx.repeatOnStarted
 import com.github.xs93.core.utils.ClassUtils
+import com.github.xs93.core.utils.toast.ToastUtils
 import java.lang.reflect.Modifier
 
 /**
@@ -57,10 +58,21 @@ abstract class BaseVbVmFragment<VB : ViewDataBinding, VM : BaseViewModel<*, *, *
 
     override fun initObserver(savedInstanceState: Bundle?) {
         super.initObserver(savedInstanceState)
-        repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.uiStateFlow.collect {
-                
+        repeatOnStarted {
+            viewModel.commonEventFlow.collect {
+                when (it) {
+                    is CommonUiEvent.ShowLoadingDialog -> {
+                        handleShowLoadingDialogEvent(it.show)
+                    }
+                    is CommonUiEvent.ShowToast -> {
+                        ToastUtils.show(it.charSequence, it.duration)
+                    }
+                }
             }
         }
+    }
+
+    protected open fun handleShowLoadingDialogEvent(showDialog: Boolean) {
+
     }
 }

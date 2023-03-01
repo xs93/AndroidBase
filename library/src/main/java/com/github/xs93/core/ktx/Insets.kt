@@ -2,6 +2,8 @@ package com.github.xs93.core.ktx
 
 import android.content.Context
 import android.view.View
+import android.view.View.OnAttachStateChangeListener
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.github.xs93.core.ui.Insets
@@ -33,6 +35,21 @@ fun Insets.landscape(context: Context): Insets {
     }
 }
 
+fun View.requestApplyInsetsWhenAttached() {
+    if (isAttachedToWindow) {
+        requestApplyInsets()
+    } else {
+        addOnAttachStateChangeListener(object : OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) {
+                v.removeOnAttachStateChangeListener(this)
+                v.requestApplyInsets()
+            }
+
+            override fun onViewDetachedFromWindow(v: View) = Unit
+        })
+    }
+}
+
 fun View.setOnInsertsChangedListener(adaptLandscape: Boolean = true, listener: (Insets) -> Unit) {
     setOnApplyWindowInsetsListener { v, ins ->
         val compat = WindowInsetsCompat.toWindowInsetsCompat(ins)
@@ -46,5 +63,5 @@ fun View.setOnInsertsChangedListener(adaptLandscape: Boolean = true, listener: (
         listener(if (adaptLandscape) rInsets.landscape(v.context) else rInsets)
         v.onApplyWindowInsets(compat.toWindowInsets())
     }
-    requestApplyInsets()
+    requestApplyInsetsWhenAttached()
 }
