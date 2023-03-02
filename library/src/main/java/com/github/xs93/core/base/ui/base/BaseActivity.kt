@@ -37,10 +37,8 @@ abstract class BaseActivity : AppCompatActivity() {
             customSetContentView()
         }
 
-
-        val viewGroup = window.decorView as ViewGroup
-        val contentView: View = findViewById(android.R.id.content)
-        contentView.setOnInsertsChangedListener {
+        val contentView: View? = findViewById(android.R.id.content)
+        contentView?.setOnInsertsChangedListener {
             surface.insets = it
         }
 

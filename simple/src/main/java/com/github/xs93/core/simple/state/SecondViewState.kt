@@ -1,6 +1,6 @@
 package com.github.xs93.core.simple.state
 
-import com.github.xs93.core.base.viewmodel.IUIEvent
+import com.github.xs93.core.base.viewmodel.IUiEvent
 import com.github.xs93.core.base.viewmodel.IUIState
 import com.github.xs93.core.base.viewmodel.IUiIntent
 
@@ -16,7 +16,7 @@ class SecondViewState : IUIState {
 }
 
 
-sealed class SecondViewEvent : IUIEvent {
+sealed class SecondViewEvent : IUiEvent {
     object InitData : SecondViewEvent()
 }
 

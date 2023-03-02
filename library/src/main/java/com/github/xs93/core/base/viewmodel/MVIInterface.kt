@@ -14,10 +14,10 @@ import androidx.annotation.Keep
 
 
 @Keep
-interface IUIEvent
+interface IUiEvent
 
 @Keep
-sealed class CommonUiEvent : IUIEvent {
+sealed class CommonUiEvent : IUiEvent {
     data class ShowToast(val charSequence: CharSequence, val duration: Int = Toast.LENGTH_SHORT) : CommonUiEvent()
 
     data class ShowLoadingDialog(val show: Boolean) : CommonUiEvent()
