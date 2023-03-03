@@ -44,7 +44,7 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
     val uiEventFlow = _uiEventFlow.receiveAsFlow()
 
     private val _commonEventFlow: Channel<CommonUiEvent> = Channel()
-    val commonEventFlow = _uiEventFlow.receiveAsFlow()
+    val commonEventFlow = _commonEventFlow.receiveAsFlow()
 
 
     private val _uiIntentFlow: Channel<UiIntent> = Channel()
