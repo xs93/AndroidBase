@@ -40,14 +40,14 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
     protected abstract fun initUiState(): UiState
 
     //一次性消费事件，如toast，显示关闭弹窗等消息
-    private val _uiEventFlow: Channel<UiEvent> = Channel()
+    private val _uiEventFlow: Channel<UiEvent> = Channel(Channel.UNLIMITED)
     val uiEventFlow = _uiEventFlow.receiveAsFlow()
 
-    private val _commonEventFlow: Channel<CommonUiEvent> = Channel()
+    private val _commonEventFlow: Channel<CommonUiEvent> = Channel(Channel.UNLIMITED)
     val commonEventFlow = _uiEventFlow.receiveAsFlow()
 
 
-    private val _uiIntentFlow: Channel<UiIntent> = Channel()
+    private val _uiIntentFlow: Channel<UiIntent> = Channel(Channel.UNLIMITED)
     private val uiIntentFlow = _uiIntentFlow.receiveAsFlow()
 
     protected abstract fun handleIntent(intent: UiIntent)

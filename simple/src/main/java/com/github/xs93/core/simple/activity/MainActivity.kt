@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.os.postDelayed
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
-import com.github.xs93.core.ktx.getColorCompat
 import com.github.xs93.core.ktx.isStatusBarTranslucentCompat
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
 import com.github.xs93.core.simple.R
@@ -23,6 +22,7 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
         ToastUtils.init(this)
         window.apply {
             isStatusBarTranslucentCompat = true
+            isSystemBarsTranslucentCompat = true
         }
         binding.surface = surface
         binding.clickEvent = ClickEvent()
