@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.StringRes
 import java.lang.reflect.Field
@@ -23,6 +24,8 @@ object ToastUtils {
 
     private lateinit var mContext: Context
 
+    private val mMainHandler = Handler(Looper.getMainLooper())
+
     @JvmStatic
     fun init(context: Context) {
         mContext = context.applicationContext
@@ -30,11 +33,13 @@ object ToastUtils {
 
     @JvmStatic
     fun show(charSequence: CharSequence, duration: Int = Toast.LENGTH_SHORT, transform: ((Toast) -> Unit)? = null) {
-        val toast = Toast.makeText(mContext, charSequence, duration)
-        toast.setText(charSequence)
-        transform?.invoke(toast)
-        hook(toast)
-        toast.show()
+        mMainHandler.post {
+            val toast = Toast.makeText(mContext, charSequence, duration)
+            toast.setText(charSequence)
+            transform?.invoke(toast)
+            hook(toast)
+            toast.show()
+        }
     }
 
     @JvmStatic
