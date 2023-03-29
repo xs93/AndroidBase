@@ -62,12 +62,10 @@ fun Context.copy(content: String, label: String = "label"): Boolean {
     }
 }
 
-fun Context.isDebug(): Boolean {
-    val applicationInfo = applicationInfo
-    return applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
-}
+inline val Context.isDebug: Boolean
+    get() = (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
 
-val Context.appName: String
+inline val Context.appName: String
     get() {
         var appName = ""
         try {
@@ -81,7 +79,7 @@ val Context.appName: String
         return appName
     }
 
-val Context.appVersionName: String
+inline val Context.appVersionName: String
     get() {
         var versionName = ""
         try {
@@ -94,7 +92,7 @@ val Context.appVersionName: String
         return versionName
     }
 
-val Context.appVersionCode: Long
+inline val Context.appVersionCode: Long
     get() {
         var versionCode: Long = -1L
         try {
