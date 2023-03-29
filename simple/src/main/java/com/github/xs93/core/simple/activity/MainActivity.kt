@@ -1,10 +1,8 @@
 package com.github.xs93.core.simple.activity
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
-import androidx.core.os.postDelayed
+import com.github.xs93.core.base.loading.defaultLoadingDialog
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.isStatusBarTranslucentCompat
@@ -18,6 +16,8 @@ import com.github.xs93.core.utils.toast.ToastUtils
 class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
+    private val loadingDialog by defaultLoadingDialog()
+
     override fun initView(savedInstanceState: Bundle?) {
         ToastUtils.init(this)
         window.apply {
@@ -25,10 +25,10 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
             isSystemBarsTranslucentCompat = true
         }
         binding.surface = surface
-        binding.clickEvent = ClickEvent()
-//        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
-////            ToastUtils.show(it + " " + Thread.currentThread().name)
-//        }
+        binding.clickEvent =
+            ClickEvent() //        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
+        ////            ToastUtils.show(it + " " + Thread.currentThread().name)
+        //        }
 
         FlowBus.subscribe<String>("TestBus") {
             ToastUtils.show(it + " " + Thread.currentThread().name)
@@ -36,10 +36,9 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
 
         FlowBus.subscribeSticky<String>("testSticky") {
             ToastUtils.show(it + " " + Thread.currentThread().name)
-        }
-//        FlowBus.withSticky<String>("testSticky").subscribe {
-//            ToastUtils.show(it)
-//        }
+        } //        FlowBus.withSticky<String>("testSticky").subscribe {
+        //            ToastUtils.show(it)
+        //        }
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -50,15 +49,9 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
     inner class ClickEvent {
 
         fun clickFullScreenDialog(view: View) {
-//            FlowBus.post("TestBus", "TestBus")
-//            FlowBus.with<String>("TestBus").post("TestBus")
-            FlowBus.postSticky("testSticky", "测试Sticky")
-//            FlowBus.withSticky<String>("testSticky").post("测试Sticky")
-            Handler(Looper.getMainLooper()).postDelayed(3000L) {
-                val dialog = FullScreenDialogFragment()
-                dialog.show(supportFragmentManager, "FullScreenDialogFragment")
-            }
-
+            loadingDialog.show()
+            val dialog = FullScreenDialogFragment()
+            dialog.show(supportFragmentManager, "FullScreenDialogFragment")
         }
 
         fun clickFragment() {
