@@ -194,6 +194,36 @@ object ActivityStackManager {
     }
 
     /**
+     * 关闭除开列表外的所有界面
+     * @param exclude List<String> 不关闭这些界面
+     */
+    @JvmStatic
+    fun finishAllActivityExcludeClassName(exclude: List<String>) {
+        if (isNotEmpty()) {
+            for (activity in mActivityStack) {
+                if (!exclude.contains(activity.javaClass.name)) {
+                    finishActivity(activity)
+                }
+            }
+        }
+    }
+
+    /**
+     * 关闭除开列表外的所有界面
+     * @param exclude List<String> 不关闭这些界面
+     */
+    @JvmStatic
+    fun finishAllActivityExcludeClass(exclude: List<Class<*>>) {
+        if (isNotEmpty()) {
+            for (activity in mActivityStack) {
+                if (!exclude.contains(activity::class.java)) {
+                    finishActivity(activity)
+                }
+            }
+        }
+    }
+    
+    /**
      * 关闭App 所有activity，并且杀死进程，退出app
      */
     @JvmStatic

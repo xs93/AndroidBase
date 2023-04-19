@@ -18,4 +18,5 @@ import androidx.fragment.app.DialogFragment
  * @receiver DialogFragment? 目标对象
  * @return Boolean true 显示，false不显示
  */
-fun DialogFragment?.isShowing() = this != null && dialog != null && dialog?.isShowing == true
+inline val DialogFragment?.isShowing
+    get() = this != null && dialog != null && dialog?.isShowing == true

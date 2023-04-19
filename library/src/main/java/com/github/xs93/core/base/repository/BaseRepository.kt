@@ -12,12 +12,12 @@ package com.github.xs93.core.base.repository
 open class BaseRepository {
 
 
-    protected suspend fun <T> call(block: suspend () -> T?): T? {
-        return try {
-            block.invoke()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+    protected suspend fun <T> request(block: suspend () -> T?): T? {
+        val result = kotlin.runCatching {
+            block()
+        }.onFailure {
+            it.printStackTrace()
         }
+        return result.getOrNull()
     }
 }

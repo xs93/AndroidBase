@@ -14,7 +14,14 @@ import java.util.*
  * @email 466911254@qq.com
  */
 
-/** 时间戳格式化为指定格式的只出场 */
+/** 时间戳转为时间字符串
+ *
+ * @receiver Long 时间戳,毫秒
+ * @param pattern String 时间字符串格式
+ * @param locale Locale  地区
+ * @param timeZone TimeZone? 时区
+ * @return String 时间字符串，当转换失败,返回空字符串
+ */
 fun Long.formatTime(
     pattern: String = "yyyy-MM-dd HH:mm:ss",
     locale: Locale = Locale.getDefault(),
@@ -32,7 +39,11 @@ fun Long.formatTime(
     }
 }
 
-/** 当前时间戳是否是当天 */
+/**
+ * 判断当前时间戳是否是今天
+ * @receiver Long 时间戳
+ * @return Boolean true，时间是今天,false 不是今天
+ */
 fun Long.isToday(): Boolean {
     return try {
         val mDataFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -44,7 +55,14 @@ fun Long.isToday(): Boolean {
     }
 }
 
-/** 指定日期字符串转换为时间戳 */
+/**
+ * 时间字符串 转换为时间戳
+ * @receiver String 日期时间字符串
+ * @param pattern String 日期时间字符串格式
+ * @param locale Locale 地区
+ * @param timeZone TimeZone? 时区
+ * @return Long 时间字符串,转换失败，则返回0
+ */
 fun String.parseTime(
     pattern: String = "yyyy-MM-dd HH:mm:ss",
     locale: Locale = Locale.getDefault(),

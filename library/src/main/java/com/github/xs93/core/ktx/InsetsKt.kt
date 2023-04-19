@@ -3,7 +3,6 @@ package com.github.xs93.core.ktx
 import android.content.Context
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
-import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.github.xs93.core.ui.Insets

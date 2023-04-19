@@ -17,14 +17,17 @@ import java.util.*
  * @date 2022/7/13 9:39
  * @email 466911254@qq.com
  */
+@Suppress("unused")
 class DeviceIdUtils {
 
     companion object {
         private const val KEY_UNIQUE_IDENTIFICATION_CODE = "ID_UniqueIdentificationCode"
         private const val KEY_ANDROID = "ID_ANDROID"
         private const val KEY_UUID = "ID_UUID"
-        private const val KEY_RANDOM = "564289"
+        private const val KEY_RANDOM = "ID_RANDOM"
         private const val DEFAULT_RANDOM = "564289"
+
+        private val INVALID_ANDROID_ID = listOf("00000000000000", "000000000000000", "9774d56d682e549c")
 
         @JvmStatic
         fun getDeviceId(context: Context): String {
@@ -33,7 +36,7 @@ class DeviceIdUtils {
             if (uniqueIdentificationCode.isNullOrBlank()) {
                 val editor = sharedPreferences.edit()
                 var androidId = sharedPreferences.getString(KEY_ANDROID, null) ?: getAndroidId(context)
-                if (androidId.isNullOrBlank() || androidId == "9774d56d682e549c") {
+                if (androidId.isNullOrBlank() || INVALID_ANDROID_ID.contains(androidId)) {
                     var uuid = sharedPreferences.getString(KEY_UUID, null)
                     if (uuid.isNullOrBlank()) {
                         uuid = UUID.randomUUID().toString()
@@ -42,7 +45,6 @@ class DeviceIdUtils {
                     androidId = uuid
                     editor.putString(KEY_ANDROID, androidId)
                 }
-
 
                 val imei = getImei(context)
                 val serial = getSerial()
@@ -172,23 +174,5 @@ class DeviceIdUtils {
                 "".toByteArray()
             }
         }
-
-        /**
-         * 转16进制字符串
-         * @param data 数据
-         * @return 16进制字符串
-         */
-        private fun bytesToHex(data: ByteArray): String {
-            val sb = StringBuilder()
-            var stmp: String
-            for (n in data.indices) {
-                stmp = Integer.toHexString((data[n].toInt() and 0xFF))
-                if (stmp.length == 1) sb.append("0")
-                sb.append(stmp)
-            }
-            return sb.toString().uppercase(Locale.getDefault())
-        }
     }
-
-
 }
