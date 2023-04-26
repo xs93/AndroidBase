@@ -26,16 +26,28 @@ object ToastUtils {
 
     private val mMainHandler = Handler(Looper.getMainLooper())
 
+    private var mCommonTransform: ((Toast) -> Unit)? = null
+
     @JvmStatic
     fun init(context: Context) {
         mContext = context.applicationContext
     }
+
+    /**
+     * 设置公共的Toast 设置
+     * @param transform Function1<Toast, Unit>? toast设置修改
+     */
+    fun setCommonTransform(transform: ((Toast) -> Unit)?) {
+        mCommonTransform = transform
+    }
+
 
     @JvmStatic
     fun show(charSequence: CharSequence, duration: Int = Toast.LENGTH_SHORT, transform: ((Toast) -> Unit)? = null) {
         mMainHandler.post {
             val toast = Toast.makeText(mContext, charSequence, duration)
             toast.setText(charSequence)
+            mCommonTransform?.invoke(toast)
             transform?.invoke(toast)
             hook(toast)
             toast.show()

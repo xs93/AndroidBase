@@ -1,13 +1,10 @@
 package com.github.xs93.core.base.ui.base
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
 import com.github.xs93.core.ui.Surface
 
