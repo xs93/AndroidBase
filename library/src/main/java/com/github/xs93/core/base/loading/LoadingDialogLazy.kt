@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 
 /**
- *
+ * 延迟初始化LoadingDialog对象
  *
  * @author XuShuai
  * @version v1.0

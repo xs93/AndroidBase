@@ -11,7 +11,6 @@ import com.github.xs93.core.base.viewmodel.BaseViewModel
 import com.github.xs93.core.base.viewmodel.CommonUiEvent
 import com.github.xs93.core.ktx.repeatOnStarted
 import com.github.xs93.core.utils.ClassUtils
-import com.github.xs93.core.utils.toast.ToastUtils
 import java.lang.reflect.Modifier
 
 /**
@@ -65,7 +64,7 @@ abstract class BaseVbVmFragment<VB : ViewDataBinding, VM : BaseViewModel<*, *, *
                         handleShowLoadingDialogEvent(it.show)
                     }
                     is CommonUiEvent.ShowToast -> {
-                        ToastUtils.show(it.charSequence, it.duration)
+                        showToast(it.charSequence, it.duration)
                     }
                 }
             }

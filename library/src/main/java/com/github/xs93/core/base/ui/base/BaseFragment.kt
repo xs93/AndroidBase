@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
+import com.github.xs93.core.toast.IToast
+import com.github.xs93.core.toast.UiToastProxy
 import com.github.xs93.core.ui.Surface
 
 /**
@@ -19,7 +21,7 @@ import com.github.xs93.core.ui.Surface
  * @version v1.0
  * @date 2021/11/4 11:25
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), IToast by UiToastProxy() {
 
 
     protected val surface = Surface()

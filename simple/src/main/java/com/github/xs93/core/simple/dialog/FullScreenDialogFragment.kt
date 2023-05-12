@@ -2,7 +2,6 @@
 
 package com.github.xs93.core.simple.dialog
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -12,7 +11,6 @@ import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
 import com.github.xs93.core.simple.R
 import com.github.xs93.core.simple.databinding.DialogFullScreenBinding
-import com.github.xs93.core.utils.toast.ToastUtils
 
 /**
  *
@@ -29,7 +27,6 @@ class FullScreenDialogFragment : BaseVbDialogFragment<DialogFullScreenBinding>(R
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
-        ToastUtils.init(requireContext().applicationContext)
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -40,7 +37,7 @@ class FullScreenDialogFragment : BaseVbDialogFragment<DialogFullScreenBinding>(R
         super.onViewCreated(view, savedInstanceState)
         binding.suface = surface
         FlowBus.withSticky<String>("testSticky").subscribe(viewLifecycleOwner) {
-            ToastUtils.show(it + "FullScreenDialogFragment")
+            showToast(it + "FullScreenDialogFragment")
         }
     }
 

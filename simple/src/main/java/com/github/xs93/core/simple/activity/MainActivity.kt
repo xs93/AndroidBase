@@ -11,32 +11,32 @@ import com.github.xs93.core.simple.R
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
 import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
 import com.github.xs93.core.simple.fragment.TestInsertsFragment
-import com.github.xs93.core.utils.toast.ToastUtils
 
-class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main) {
 
 
     private val loadingDialog by defaultLoadingDialog()
 
     override fun initView(savedInstanceState: Bundle?) {
-        ToastUtils.init(this)
         window.apply {
             isStatusBarTranslucentCompat = true
             isSystemBarsTranslucentCompat = true
         }
         binding.surface = surface
         binding.clickEvent =
-            ClickEvent() //        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
+            ClickEvent()
+        //        FlowBus.with<String>("TestBus").subscribe(this, Lifecycle.State.RESUMED, Dispatchers.Main) {
         ////            ToastUtils.show(it + " " + Thread.currentThread().name)
         //        }
 
         FlowBus.subscribe<String>("TestBus") {
-            ToastUtils.show(it + " " + Thread.currentThread().name)
+            showToast(it + " " + Thread.currentThread().name)
         }
 
         FlowBus.subscribeSticky<String>("testSticky") {
-            ToastUtils.show(it + " " + Thread.currentThread().name)
-        } //        FlowBus.withSticky<String>("testSticky").subscribe {
+            showToast(it + " " + Thread.currentThread().name)
+        }
+        //        FlowBus.withSticky<String>("testSticky").subscribe {
         //            ToastUtils.show(it)
         //        }
     }
@@ -49,9 +49,9 @@ class MainActivity() : BaseVbActivity<ActivityMainBinding>(R.layout.activity_mai
     inner class ClickEvent {
 
         fun clickFullScreenDialog(view: View) {
-            loadingDialog.show()
+            showToast("111111")
             val dialog = FullScreenDialogFragment()
-            dialog.show(supportFragmentManager, "FullScreenDialogFragment")
+            dialog.showAllowingStateLoss(supportFragmentManager)
         }
 
         fun clickFragment() {

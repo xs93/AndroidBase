@@ -1,4 +1,4 @@
-package com.github.xs93.core.utils.toast
+package com.github.xs93.core.toast.impl
 
 import android.os.Handler
 import android.os.Message

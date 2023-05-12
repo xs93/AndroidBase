@@ -7,8 +7,9 @@ import android.content.res.Configuration
 import android.os.Bundle
 import com.github.xs93.core.activity.ActivityStackManager
 import com.github.xs93.core.crash.CrashHandler
+import com.github.xs93.core.toast.ToastHelper
+import com.github.xs93.core.toast.impl.SystemToast
 import com.github.xs93.core.utils.AppInject
-import com.github.xs93.core.utils.toast.ToastUtils
 
 /**
  * 基础Application
@@ -41,7 +42,7 @@ abstract class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AppInject.init(this)
-        ToastUtils.init(this)
+        ToastHelper.initToast(SystemToast(this))
         CrashHandler.init(this)
         ActivityStackManager.init(this)
         registerAppLifecycleListener()

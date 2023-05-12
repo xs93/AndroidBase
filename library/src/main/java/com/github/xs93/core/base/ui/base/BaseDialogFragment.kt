@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.github.xs93.core.R
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
+import com.github.xs93.core.toast.IToast
+import com.github.xs93.core.toast.UiToastProxy
 import com.github.xs93.core.ui.Surface
 import java.lang.reflect.Field
 
@@ -21,7 +23,7 @@ import java.lang.reflect.Field
  * @version v1.0
  * @date 2021/11/4 13:40
  */
-abstract class BaseDialogFragment : DialogFragment() {
+abstract class BaseDialogFragment : DialogFragment(), IToast by UiToastProxy() {
 
     protected val surface = Surface()
 

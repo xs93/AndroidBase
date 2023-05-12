@@ -31,7 +31,7 @@ abstract class LoadingDialog(private val fm: FragmentManager, private val lifecy
             lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mFlow.collect {
                     if (it) {
-                        if (mLoadingDialog.isShowing()) {
+                        if (mLoadingDialog.isShowing) {
                             return@collect
                         }
                         mLoadingDialog = createDialog().apply {
@@ -59,8 +59,16 @@ abstract class LoadingDialog(private val fm: FragmentManager, private val lifecy
     }
 
     fun isShowing(): Boolean {
-        return mLoadingDialog.isShowing()
+        return mLoadingDialog.isShowing
     }
 
     abstract fun createDialog(): DialogFragment
+
+    /**
+     * 返回当前Dialog对象
+     * @return DialogFragment? DialogFragment对象
+     */
+    fun getDialog(): DialogFragment? {
+        return mLoadingDialog
+    }
 }

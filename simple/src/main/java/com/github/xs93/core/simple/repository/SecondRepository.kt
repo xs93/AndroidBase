@@ -16,7 +16,7 @@ class SecondRepository : BaseRepository() {
 
 
     suspend fun getUserInfo(): Int? {
-        return call {
+        return request {
             getUser()
         }
     }

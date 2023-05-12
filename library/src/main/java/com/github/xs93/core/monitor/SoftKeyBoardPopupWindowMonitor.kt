@@ -40,12 +40,14 @@ class SoftKeyBoardPopupWindowMonitor(private val activity: Activity) : PopupWind
 
 
     fun start() {
-        if (!isShowing) {
+        if (!isShowing && !activity.isDestroyed) {
             mRootView.viewTreeObserver.removeOnGlobalLayoutListener(this)
             mRootView.viewTreeObserver.addOnGlobalLayoutListener(this)
-            val docorView = activity.window.decorView
-            docorView.post {
-                showAtLocation(docorView, Gravity.NO_GRAVITY, 0, 0)
+            val decorView = activity.window.decorView
+            decorView.post {
+                if (!activity.isFinishing && !activity.isDestroyed && decorView.windowToken != null) {
+                    showAtLocation(decorView, Gravity.NO_GRAVITY, 0, 0)
+                }
             }
         }
     }
