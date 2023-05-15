@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
+import com.github.xs93.core.loading.IUiLoadingDialog
+import com.github.xs93.core.loading.IUiLoadingDialogProxy
 import com.github.xs93.core.toast.IToast
 import com.github.xs93.core.toast.UiToastProxy
 import com.github.xs93.core.ui.Surface
@@ -21,8 +24,12 @@ import com.github.xs93.core.ui.Surface
  * @version v1.0
  * @date 2021/11/4 11:25
  */
-abstract class BaseFragment : Fragment(), IToast by UiToastProxy() {
+abstract class BaseFragment : Fragment(), IToast by UiToastProxy(), IUiLoadingDialog {
 
+
+    private val mIUiLoadingDialog by lazy {
+        IUiLoadingDialogProxy(childFragmentManager, viewLifecycleOwner)
+    }
 
     protected val surface = Surface()
 
@@ -156,5 +163,21 @@ abstract class BaseFragment : Fragment(), IToast by UiToastProxy() {
     protected fun hideKeyboardFrom(context: Context, view: View) {
         val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
+
+    override fun createLoadingDialog(): DialogFragment {
+        return mIUiLoadingDialog.createLoadingDialog()
+    }
+
+    override fun showLoadingDialog(message: String?) {
+        mIUiLoadingDialog.showLoadingDialog(message)
+    }
+
+    override fun updateLoadingDialog(message: String) {
+        mIUiLoadingDialog.updateLoadingDialog(message)
+    }
+
+    override fun hideLoadingDialog() {
+        mIUiLoadingDialog.hideLoadingDialog()
     }
 }

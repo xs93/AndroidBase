@@ -2,20 +2,16 @@ package com.github.xs93.core.simple.activity
 
 import android.os.Bundle
 import android.view.View
-import com.github.xs93.core.base.loading.defaultLoadingDialog
 import com.github.xs93.core.base.ui.viewbinding.BaseVbActivity
 import com.github.xs93.core.bus.FlowBus
 import com.github.xs93.core.ktx.isStatusBarTranslucentCompat
 import com.github.xs93.core.ktx.isSystemBarsTranslucentCompat
 import com.github.xs93.core.simple.R
 import com.github.xs93.core.simple.databinding.ActivityMainBinding
-import com.github.xs93.core.simple.dialog.FullScreenDialogFragment
 import com.github.xs93.core.simple.fragment.TestInsertsFragment
 
 class MainActivity : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-
-    private val loadingDialog by defaultLoadingDialog()
 
     override fun initView(savedInstanceState: Bundle?) {
         window.apply {
@@ -50,8 +46,9 @@ class MainActivity : BaseVbActivity<ActivityMainBinding>(R.layout.activity_main)
 
         fun clickFullScreenDialog(view: View) {
             showToast("111111")
-            val dialog = FullScreenDialogFragment()
-            dialog.showAllowingStateLoss(supportFragmentManager)
+            showLoadingDialog()
+//            val dialog = FullScreenDialogFragment()
+//            dialog.showAllowingStateLoss(supportFragmentManager)
         }
 
         fun clickFragment() {

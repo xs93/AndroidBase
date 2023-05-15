@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.github.xs93.core.R
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
+import com.github.xs93.core.loading.IUiLoadingDialog
+import com.github.xs93.core.loading.IUiLoadingDialogProxy
 import com.github.xs93.core.toast.IToast
 import com.github.xs93.core.toast.UiToastProxy
 import com.github.xs93.core.ui.Surface
@@ -23,7 +25,11 @@ import java.lang.reflect.Field
  * @version v1.0
  * @date 2021/11/4 13:40
  */
-abstract class BaseDialogFragment : DialogFragment(), IToast by UiToastProxy() {
+abstract class BaseDialogFragment : DialogFragment(), IToast by UiToastProxy(), IUiLoadingDialog {
+
+    private val mIUiLoadingDialog by lazy {
+        IUiLoadingDialogProxy(childFragmentManager, viewLifecycleOwner)
+    }
 
     protected val surface = Surface()
 
@@ -100,5 +106,21 @@ abstract class BaseDialogFragment : DialogFragment(), IToast by UiToastProxy() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    override fun createLoadingDialog(): DialogFragment {
+        return mIUiLoadingDialog.createLoadingDialog()
+    }
+
+    override fun showLoadingDialog(message: String?) {
+        mIUiLoadingDialog.showLoadingDialog(message)
+    }
+
+    override fun updateLoadingDialog(message: String) {
+        mIUiLoadingDialog.updateLoadingDialog(message)
+    }
+
+    override fun hideLoadingDialog() {
+        mIUiLoadingDialog.hideLoadingDialog()
     }
 }

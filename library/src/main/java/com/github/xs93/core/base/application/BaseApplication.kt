@@ -7,6 +7,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import com.github.xs93.core.activity.ActivityStackManager
 import com.github.xs93.core.crash.CrashHandler
+import com.github.xs93.core.loading.LoadingDialogHelper
+import com.github.xs93.core.loading.impl.DefaultLoadingDialog
 import com.github.xs93.core.toast.ToastHelper
 import com.github.xs93.core.toast.impl.SystemToast
 import com.github.xs93.core.utils.AppInject
@@ -43,6 +45,7 @@ abstract class BaseApplication : Application() {
         super.onCreate()
         AppInject.init(this)
         ToastHelper.initToast(SystemToast(this))
+        LoadingDialogHelper.initLoadingDialog(DefaultLoadingDialog())
         CrashHandler.init(this)
         ActivityStackManager.init(this)
         registerAppLifecycleListener()

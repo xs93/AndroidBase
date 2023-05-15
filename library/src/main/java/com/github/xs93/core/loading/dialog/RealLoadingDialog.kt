@@ -1,4 +1,4 @@
-package com.github.xs93.core.base.loading.dialog
+package com.github.xs93.core.loading.dialog
 
 import android.annotation.SuppressLint
 import android.os.Bundle

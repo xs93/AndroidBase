@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.github.xs93.core.ktx.setOnInsertsChangedListener
+import com.github.xs93.core.loading.IUiLoadingDialog
+import com.github.xs93.core.loading.IUiLoadingDialogProxy
 import com.github.xs93.core.toast.IToast
 import com.github.xs93.core.toast.UiToastProxy
 import com.github.xs93.core.ui.Surface
@@ -18,11 +21,15 @@ import com.github.xs93.core.ui.Surface
  * @version v1.0
  * @date 2021/11/4 11:01
  */
-abstract class BaseActivity : AppCompatActivity(), IToast by UiToastProxy() {
+abstract class BaseActivity : AppCompatActivity(), IToast by UiToastProxy(), IUiLoadingDialog {
 
     private var mResume: Boolean = false
 
     protected val surface = Surface()
+
+    private val mIUiLoadingDialog by lazy {
+        IUiLoadingDialogProxy(supportFragmentManager, this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         beforeSuperOnCreate(savedInstanceState)
@@ -101,5 +108,21 @@ abstract class BaseActivity : AppCompatActivity(), IToast by UiToastProxy() {
      */
     fun isResume(): Boolean {
         return mResume
+    }
+
+    override fun createLoadingDialog(): DialogFragment {
+        return mIUiLoadingDialog.createLoadingDialog()
+    }
+
+    override fun showLoadingDialog(message: String?) {
+        mIUiLoadingDialog.showLoadingDialog(message)
+    }
+
+    override fun updateLoadingDialog(message: String) {
+        mIUiLoadingDialog.updateLoadingDialog(message)
+    }
+
+    override fun hideLoadingDialog() {
+        mIUiLoadingDialog.hideLoadingDialog()
     }
 }
