@@ -110,6 +110,13 @@ object ActivityStackManager {
         return null
     }
 
+    fun secondActivity(): Activity? {
+        if (isEmpty() || getSize() < 2) {
+            return null
+        }
+        return mActivityStack.elementAt(mActivityStack.size - 2)
+    }
+
     /**
      * 当前栈中查找指定class的activity
      * @param cls Class<*> 指定的class对象
@@ -222,7 +229,7 @@ object ActivityStackManager {
             }
         }
     }
-    
+
     /**
      * 关闭App 所有activity，并且杀死进程，退出app
      */
