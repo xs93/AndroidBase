@@ -17,7 +17,7 @@ class DefaultLoadingDialog : ILoadingDialog {
         return RealLoadingDialog.newInstance()
     }
 
-    override fun updateLoadingDialog(dialogFragment: DialogFragment, message: String?) {
+    override fun updateLoadingDialog(dialogFragment: DialogFragment, message: CharSequence?) {
 
     }
 }

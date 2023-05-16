@@ -169,11 +169,11 @@ abstract class BaseFragment : Fragment(), IToast by UiToastProxy(), IUiLoadingDi
         return mIUiLoadingDialog.createLoadingDialog()
     }
 
-    override fun showLoadingDialog(message: String?) {
+    override fun showLoadingDialog(message: CharSequence?) {
         mIUiLoadingDialog.showLoadingDialog(message)
     }
 
-    override fun updateLoadingDialog(message: String) {
+    override fun updateLoadingDialog(message: CharSequence) {
         mIUiLoadingDialog.updateLoadingDialog(message)
     }
 

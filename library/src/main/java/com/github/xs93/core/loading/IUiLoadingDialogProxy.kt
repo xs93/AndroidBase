@@ -63,13 +63,13 @@ class IUiLoadingDialogProxy(
         return LoadingDialogHelper.createLoadingDialog()
     }
 
-    override fun showLoadingDialog(message: String?) {
+    override fun showLoadingDialog(message: CharSequence?) {
         lifecycleOwner.lifecycleScope.launch {
             mChannel.send(LoadingDialogUiIntent.ShowLoadingDialogUiIntent(message))
         }
     }
 
-    override fun updateLoadingDialog(message: String) {
+    override fun updateLoadingDialog(message: CharSequence) {
         lifecycleOwner.lifecycleScope.launch {
             mChannel.send(LoadingDialogUiIntent.UpdateLoadingDialogUiIntent(message))
         }
@@ -82,8 +82,8 @@ class IUiLoadingDialogProxy(
     }
 
     private sealed class LoadingDialogUiIntent {
-        data class ShowLoadingDialogUiIntent(val message: String?) : LoadingDialogUiIntent()
-        data class UpdateLoadingDialogUiIntent(val message: String?) : LoadingDialogUiIntent()
+        data class ShowLoadingDialogUiIntent(val message: CharSequence?) : LoadingDialogUiIntent()
+        data class UpdateLoadingDialogUiIntent(val message: CharSequence?) : LoadingDialogUiIntent()
         object HideLoadingDialogUiIntent : LoadingDialogUiIntent()
     }
 }

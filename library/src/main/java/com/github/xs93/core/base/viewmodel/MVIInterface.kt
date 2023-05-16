@@ -19,8 +19,9 @@ interface IUiEvent
 @Keep
 sealed class CommonUiEvent : IUiEvent {
     data class ShowToast(val charSequence: CharSequence, val duration: Int = Toast.LENGTH_SHORT) : CommonUiEvent()
-
-    data class ShowLoadingDialog(val show: Boolean) : CommonUiEvent()
+    data class ShowLoadingDialog(val message: CharSequence? = null) : CommonUiEvent()
+    data class UpdateLoadingDialog(val message: CharSequence) : CommonUiEvent()
+    object HideLoadingDialog : CommonUiEvent()
 }
 
 @Keep

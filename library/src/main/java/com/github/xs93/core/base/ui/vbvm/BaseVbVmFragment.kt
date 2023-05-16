@@ -61,17 +61,22 @@ abstract class BaseVbVmFragment<VB : ViewDataBinding, VM : BaseViewModel<*, *, *
             viewModel.commonEventFlow.collect {
                 when (it) {
                     is CommonUiEvent.ShowLoadingDialog -> {
-                        handleShowLoadingDialogEvent(it.show)
+                        showLoadingDialog(it.message)
                     }
+
+                    is CommonUiEvent.UpdateLoadingDialog -> {
+                        updateLoadingDialog(it.message)
+                    }
+
+                    CommonUiEvent.HideLoadingDialog -> {
+                        hideLoadingDialog()
+                    }
+
                     is CommonUiEvent.ShowToast -> {
                         showToast(it.charSequence, it.duration)
                     }
                 }
             }
         }
-    }
-
-    protected open fun handleShowLoadingDialogEvent(showDialog: Boolean) {
-
     }
 }

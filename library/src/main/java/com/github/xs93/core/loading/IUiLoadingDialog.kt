@@ -14,9 +14,9 @@ interface IUiLoadingDialog {
 
     fun createLoadingDialog(): DialogFragment
 
-    fun showLoadingDialog(message: String? = null)
+    fun showLoadingDialog(message: CharSequence? = null)
 
-    fun updateLoadingDialog(message: String)
+    fun updateLoadingDialog(message: CharSequence)
 
     fun hideLoadingDialog()
 }

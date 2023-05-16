@@ -23,7 +23,7 @@ object LoadingDialogHelper {
             ?: throw IllegalArgumentException("please call LoadingDialogHelper.initLoadingDialog")
     }
 
-    fun updateLoadingDialog(dialogFragment: DialogFragment, message: String?) {
+    fun updateLoadingDialog(dialogFragment: DialogFragment, message: CharSequence?) {
         mILoadingDialog?.updateLoadingDialog(dialogFragment, message)
     }
 }

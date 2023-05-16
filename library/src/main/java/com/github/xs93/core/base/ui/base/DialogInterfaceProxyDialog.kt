@@ -1,8 +1,8 @@
 package com.github.xs93.core.base.ui.base
 
-import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import androidx.appcompat.app.AppCompatDialog
 import com.github.xs93.core.toast.IToast
 import com.github.xs93.core.toast.UiToastProxy
 
@@ -13,7 +13,7 @@ import com.github.xs93.core.toast.UiToastProxy
  * @version v1.0
  * @date 2022/4/20 18:11
  */
-open class DialogInterfaceProxyDialog : Dialog, IToast {
+open class DialogInterfaceProxyDialog : AppCompatDialog, IToast {
 
     private val mIToast by lazy {
         UiToastProxy()

@@ -114,11 +114,11 @@ abstract class BaseActivity : AppCompatActivity(), IToast by UiToastProxy(), IUi
         return mIUiLoadingDialog.createLoadingDialog()
     }
 
-    override fun showLoadingDialog(message: String?) {
+    override fun showLoadingDialog(message: CharSequence?) {
         mIUiLoadingDialog.showLoadingDialog(message)
     }
 
-    override fun updateLoadingDialog(message: String) {
+    override fun updateLoadingDialog(message: CharSequence) {
         mIUiLoadingDialog.updateLoadingDialog(message)
     }
 

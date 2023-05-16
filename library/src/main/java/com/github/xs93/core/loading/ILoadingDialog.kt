@@ -14,5 +14,5 @@ interface ILoadingDialog {
 
     fun createLoadingDialog(): DialogFragment
 
-    fun updateLoadingDialog(dialogFragment: DialogFragment, message: String?)
+    fun updateLoadingDialog(dialogFragment: DialogFragment, message: CharSequence?)
 }

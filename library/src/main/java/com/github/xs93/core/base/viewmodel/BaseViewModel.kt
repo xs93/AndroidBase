@@ -44,8 +44,7 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
     val uiEventFlow = _uiEventFlow.receiveAsFlow()
 
     private val _commonEventFlow: Channel<CommonUiEvent> = Channel(Channel.UNLIMITED)
-    val commonEventFlow = _uiEventFlow.receiveAsFlow()
-
+    val commonEventFlow = _commonEventFlow.receiveAsFlow()
 
     private val _uiIntentFlow: Channel<UiIntent> = Channel(Channel.UNLIMITED)
     private val uiIntentFlow = _uiIntentFlow.receiveAsFlow()
@@ -84,15 +83,21 @@ abstract class BaseViewModel<UiIntent : IUiIntent, UiState : IUIState, UiEvent :
         }
     }
 
-    protected fun showLoadingDialog() {
+    protected fun showLoadingDialog(message: CharSequence? = null) {
         viewModelScope.launch {
-            _commonEventFlow.send(CommonUiEvent.ShowLoadingDialog(true))
+            _commonEventFlow.send(CommonUiEvent.ShowLoadingDialog(message))
+        }
+    }
+
+    protected fun updateLoadingDialog(message: CharSequence) {
+        viewModelScope.launch {
+            _commonEventFlow.send(CommonUiEvent.ShowLoadingDialog(message))
         }
     }
 
     protected fun hideLoadingDialog() {
         viewModelScope.launch {
-            _commonEventFlow.send(CommonUiEvent.ShowLoadingDialog(false))
+            _commonEventFlow.send(CommonUiEvent.HideLoadingDialog)
         }
     }
 

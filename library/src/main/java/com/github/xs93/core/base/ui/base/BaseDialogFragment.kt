@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -25,7 +26,7 @@ import java.lang.reflect.Field
  * @version v1.0
  * @date 2021/11/4 13:40
  */
-abstract class BaseDialogFragment : DialogFragment(), IToast by UiToastProxy(), IUiLoadingDialog {
+abstract class BaseDialogFragment : AppCompatDialogFragment(), IToast by UiToastProxy(), IUiLoadingDialog {
 
     private val mIUiLoadingDialog by lazy {
         IUiLoadingDialogProxy(childFragmentManager, viewLifecycleOwner)
@@ -112,11 +113,11 @@ abstract class BaseDialogFragment : DialogFragment(), IToast by UiToastProxy(), 
         return mIUiLoadingDialog.createLoadingDialog()
     }
 
-    override fun showLoadingDialog(message: String?) {
+    override fun showLoadingDialog(message: CharSequence?) {
         mIUiLoadingDialog.showLoadingDialog(message)
     }
 
-    override fun updateLoadingDialog(message: String) {
+    override fun updateLoadingDialog(message: CharSequence) {
         mIUiLoadingDialog.updateLoadingDialog(message)
     }
 
